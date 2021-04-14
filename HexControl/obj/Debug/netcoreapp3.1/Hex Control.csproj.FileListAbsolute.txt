@@ -1,0 +1,15 @@
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\netcoreapp3.1\Hex_Control.RotationLength.resources
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\netcoreapp3.1\Hex Control.csproj.GenerateResource.cache
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\netcoreapp3.1\Hex Control.AssemblyInfoInputs.cache
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\netcoreapp3.1\Hex Control.AssemblyInfo.cs
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\netcoreapp3.1\Hex Control.csproj.CoreCompileInputs.cache
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\netcoreapp3.1\Hex Control.csprojAssemblyReference.cache
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\netcoreapp3.1\Hex Control.exe
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\netcoreapp3.1\Hex Control.deps.json
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\netcoreapp3.1\Hex Control.runtimeconfig.json
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\netcoreapp3.1\Hex Control.runtimeconfig.dev.json
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\netcoreapp3.1\Hex Control.dll
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\netcoreapp3.1\Hex Control.pdb
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\netcoreapp3.1\Hex Control.dll
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\netcoreapp3.1\Hex Control.pdb
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\netcoreapp3.1\Hex Control.genruntimeconfig.cache

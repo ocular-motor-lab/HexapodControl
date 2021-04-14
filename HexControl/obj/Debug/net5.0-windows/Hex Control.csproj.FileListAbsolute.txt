@@ -1,0 +1,18 @@
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\net5.0-windows\Hex Control.exe
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\net5.0-windows\Hex Control.deps.json
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\net5.0-windows\Hex Control.runtimeconfig.json
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\net5.0-windows\Hex Control.runtimeconfig.dev.json
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\net5.0-windows\Hex Control.dll
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\net5.0-windows\ref\Hex Control.dll
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\net5.0-windows\Hex Control.pdb
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net5.0-windows\Hex Control.csprojAssemblyReference.cache
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net5.0-windows\Hex_Control.RotationLength.resources
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net5.0-windows\Hex Control.csproj.GenerateResource.cache
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net5.0-windows\Hex Control.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net5.0-windows\Hex Control.AssemblyInfoInputs.cache
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net5.0-windows\Hex Control.AssemblyInfo.cs
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net5.0-windows\Hex Control.csproj.CoreCompileInputs.cache
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net5.0-windows\Hex Control.dll
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net5.0-windows\ref\Hex Control.dll
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net5.0-windows\Hex Control.pdb
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net5.0-windows\Hex Control.genruntimeconfig.cache

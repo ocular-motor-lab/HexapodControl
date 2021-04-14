@@ -1,0 +1,11 @@
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net48\Hex Control.csprojAssemblyReference.cache
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net48\Hex_Control.Form1.resources
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net48\Hex Control.csproj.GenerateResource.cache
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net48\Hex Control.AssemblyInfoInputs.cache
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net48\Hex Control.AssemblyInfo.cs
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net48\Hex Control.csproj.CoreCompileInputs.cache
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\net48\Hex Control.exe.config
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\net48\Hex Control.exe
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\bin\Debug\net48\Hex Control.pdb
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net48\Hex Control.exe
+C:\Users\raulr\Documents\Unity Projects\FormHexControl\HexControl\obj\Debug\net48\Hex Control.pdb
