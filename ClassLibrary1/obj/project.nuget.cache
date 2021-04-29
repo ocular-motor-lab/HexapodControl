@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+QDI9Z/J/hHVEQi1l9FYsAkv2ksrPh4wEsCUI7lhdVKPQ0e5jvyYNeJttGAr32PB1+4P6shwsjV9OzV8BcCing==",
+  "dgSpecHash": "4Hzsp9S7nMWti58C8RniaCf8DhTALqAYI6V8SSkW6wvKozZpYZ8NlIiu6daMDu4j15R8dH6T9b7/qvAKq8yKow==",
   "success": true,
-  "projectFilePath": "C:\\Users\\raulr\\Documents\\Unity Projects\\FormHexControl\\ClassLibrary1\\ClassLibrary1.csproj",
+  "projectFilePath": "C:\\Users\\raulr\\Documents\\Unity Projects\\HexapodControl\\ClassLibrary1\\ClassLibrary1.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
