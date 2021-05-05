@@ -54,6 +54,8 @@ namespace Hex_Control
             this.ulabel = new System.Windows.Forms.Label();
             this.s_uPos = new System.Windows.Forms.TextBox();
             this.RecText = new System.Windows.Forms.Label();
+            this.sinButton = new System.Windows.Forms.Button();
+            this.yawSinButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LinearLength
@@ -286,11 +288,37 @@ namespace Hex_Control
             this.RecText.Text = "label1";
             this.RecText.Click += new System.EventHandler(this.label1_Click_2);
             // 
+            // sinButton
+            // 
+            this.sinButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.sinButton.Location = new System.Drawing.Point(727, 20);
+            this.sinButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.sinButton.Name = "sinButton";
+            this.sinButton.Size = new System.Drawing.Size(140, 23);
+            this.sinButton.TabIndex = 25;
+            this.sinButton.Text = "Sin Test";
+            this.sinButton.UseVisualStyleBackColor = true;
+            this.sinButton.Click += new System.EventHandler(this.sinButton_Click);
+            // 
+            // yawSinButton
+            // 
+            this.yawSinButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.yawSinButton.Location = new System.Drawing.Point(727, 64);
+            this.yawSinButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.yawSinButton.Name = "yawSinButton";
+            this.yawSinButton.Size = new System.Drawing.Size(140, 23);
+            this.yawSinButton.TabIndex = 26;
+            this.yawSinButton.Text = "Yaw Sin";
+            this.yawSinButton.UseVisualStyleBackColor = true;
+            this.yawSinButton.Click += new System.EventHandler(this.yawSinButton_Click);
+            // 
             // RotationLength
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(879, 360);
+            this.Controls.Add(this.yawSinButton);
+            this.Controls.Add(this.sinButton);
             this.Controls.Add(this.RecText);
             this.Controls.Add(this.wlabel);
             this.Controls.Add(this.s_wPos);
@@ -352,6 +380,8 @@ namespace Hex_Control
         private System.Windows.Forms.Label ulabel;
         private System.Windows.Forms.TextBox s_uPos;
         private System.Windows.Forms.Label RecText;
+        private System.Windows.Forms.Button sinButton;
+        private System.Windows.Forms.Button yawSinButton;
     }
 }
 
