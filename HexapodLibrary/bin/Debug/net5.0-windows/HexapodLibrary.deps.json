@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "HexapodLibrary/1.0.0": {
+        "runtime": {
+          "HexapodLibrary.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HexapodLibrary/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
