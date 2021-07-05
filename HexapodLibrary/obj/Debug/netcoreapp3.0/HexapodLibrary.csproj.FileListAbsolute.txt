@@ -1,0 +1,11 @@
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\bin\Debug\netcoreapp3.0\HexapodLibrary.deps.json
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\bin\Debug\netcoreapp3.0\HexapodLibrary.dll
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\bin\Debug\netcoreapp3.0\HexapodLibrary.pdb
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\netcoreapp3.0\HexapodLibrary.csproj.AssemblyReference.cache
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\netcoreapp3.0\HexapodLibrary.Form1.resources
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\netcoreapp3.0\HexapodLibrary.csproj.GenerateResource.cache
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\netcoreapp3.0\HexapodLibrary.AssemblyInfoInputs.cache
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\netcoreapp3.0\HexapodLibrary.AssemblyInfo.cs
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\netcoreapp3.0\HexapodLibrary.csproj.CoreCompileInputs.cache
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\netcoreapp3.0\HexapodLibrary.dll
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\netcoreapp3.0\HexapodLibrary.pdb

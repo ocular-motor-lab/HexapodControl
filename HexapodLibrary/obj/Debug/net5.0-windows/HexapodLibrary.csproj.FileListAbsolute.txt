@@ -12,3 +12,17 @@ C:\Users\raulr\Documents\Unity Projects\HexapodLibrary\obj\Debug\net5.0-windows\
 C:\Users\raulr\Documents\Unity Projects\HexapodLibrary\obj\Debug\net5.0-windows\HexapodLibrary.dll
 C:\Users\raulr\Documents\Unity Projects\HexapodLibrary\obj\Debug\net5.0-windows\ref\HexapodLibrary.dll
 C:\Users\raulr\Documents\Unity Projects\HexapodLibrary\obj\Debug\net5.0-windows\HexapodLibrary.pdb
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\bin\Debug\net5.0-windows\HexapodLibrary.deps.json
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\bin\Debug\net5.0-windows\HexapodLibrary.dll
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\bin\Debug\net5.0-windows\ref\HexapodLibrary.dll
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\bin\Debug\net5.0-windows\HexapodLibrary.pdb
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\net5.0-windows\HexapodLibrary.csproj.AssemblyReference.cache
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\net5.0-windows\HexapodLibrary.Form1.resources
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\net5.0-windows\HexapodLibrary.csproj.GenerateResource.cache
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\net5.0-windows\HexapodLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\net5.0-windows\HexapodLibrary.AssemblyInfoInputs.cache
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\net5.0-windows\HexapodLibrary.AssemblyInfo.cs
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\net5.0-windows\HexapodLibrary.csproj.CoreCompileInputs.cache
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\net5.0-windows\HexapodLibrary.dll
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\net5.0-windows\ref\HexapodLibrary.dll
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexapodLibrary\obj\Debug\net5.0-windows\HexapodLibrary.pdb

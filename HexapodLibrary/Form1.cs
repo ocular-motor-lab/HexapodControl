@@ -78,17 +78,17 @@ namespace HexapodLibrary
         public int frameNum = 0;
 
         // The previous Positions, to check velocity
-        private uint pX = 0;
-        private uint pY = 0;
-        private uint pZ = 0;
-        private uint pU = 0;
-        private uint pV = 0;
-        private uint pW = 0;
+        private float pX = 0;
+        private float pY = 0;
+        private float pZ = 0;
+        private float pU = 0;
+        private float pV = 0;
+        private float pW = 0;
 
         // Track whether there were any errors
         bool errTracker = false;
 
-        public void SendCommand(uint xPos, uint yPos, uint zPos, uint uPos, uint vPos, uint wPos)
+        public void SendCommand(float xPos, float yPos, float zPos, float uPos, float vPos, float wPos)
         {
             // Verifies that velocity is within limits
             if ( (xPos - pX > 9) || (yPos - pY > 9) || (zPos - pZ > 9) || 
@@ -192,19 +192,19 @@ namespace HexapodLibrary
         /// <param name="_vPos">Position of the V Motor</param>
         /// <param name="_wPos">Position of the W Motor</param>
         /// <returns></returns>
-        public StringBuilder strBldr(int numFrame, uint _xPos, uint _yPos, uint _zPos, uint _uPos, uint _vPos, uint _wPos)
+        public StringBuilder strBldr(int numFrame, float _xPos, float _yPos, float _zPos, float _uPos, float _vPos, float _wPos)
         {
             StringBuilder str = new StringBuilder();
 
             //leadDistanceUnit = 5; // Convert.ToUInt16(RotLength.Text);
             //oneTurnPulseNum = 10000; // Convert.ToUInt16(RotPulses.Text);
 
-            _xPos = Convert.ToUInt32(((Convert.ToUInt32(_xPos) + 5) / leadDistanceUnit) * oneTurnPulseNum); // 255;
-            _yPos = Convert.ToUInt32(((Convert.ToUInt32(_yPos) + 5) / leadDistanceUnit) * oneTurnPulseNum); // 255;
-            _zPos = Convert.ToUInt32(((Convert.ToUInt32(_zPos) + 5) / leadDistanceUnit) * oneTurnPulseNum); // 255;
-            _uPos = Convert.ToUInt32(((Convert.ToUInt32(_uPos) + 5) / leadDistanceUnit) * oneTurnPulseNum); // 255;
-            _vPos = Convert.ToUInt32(((Convert.ToUInt32(_vPos) + 5) / leadDistanceUnit) * oneTurnPulseNum); // 255;
-            _wPos = Convert.ToUInt32(((Convert.ToUInt32(_wPos) + 5) / leadDistanceUnit) * oneTurnPulseNum); // 255;
+            _xPos = Convert.ToUInt32((_xPos + 5) / leadDistanceUnit * oneTurnPulseNum); // 255;
+            _yPos = Convert.ToUInt32((_yPos + 5) / leadDistanceUnit * oneTurnPulseNum); // 255;
+            _zPos = Convert.ToUInt32((_zPos + 5) / leadDistanceUnit * oneTurnPulseNum); // 255;
+            _uPos = Convert.ToUInt32((_uPos + 5) / leadDistanceUnit * oneTurnPulseNum); // 255;
+            _vPos = Convert.ToUInt32((_vPos + 5) / leadDistanceUnit * oneTurnPulseNum); // 255;
+            _wPos = Convert.ToUInt32((_wPos + 5) / leadDistanceUnit * oneTurnPulseNum); // 255;
 
             str.Append(confirmCode.ToString("X4"));
             str.Append(passCode.ToString("X4"));

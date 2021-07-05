@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Y632a9G++89XxcN4o75MOcF6ytboQvfhnwUvkOHggVRtb//UutOUtU9grhz8jJ+NgzO+ADzpm0bJpLjjHXk9tA==",
+  "dgSpecHash": "n2zRuCOr1yKXQZr4U1rErXE/4tWondi3GiwUIW7g3pXwRSvU8NKRAJXKdNF4X6kCRPdEB2/QwuhX/tvRn46HoA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\raulr\\Documents\\Unity Projects\\HexapodLibrary\\HexapodLibrary.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\raulr\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.0.1\\microsoft.aspnetcore.app.ref.3.0.1.nupkg.sha512",
-    "C:\\Users\\raulr\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.0.0\\microsoft.windowsdesktop.app.ref.3.0.0.nupkg.sha512",
-    "C:\\Users\\raulr\\.nuget\\packages\\microsoft.netcore.app.ref\\3.0.0\\microsoft.netcore.app.ref.3.0.0.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\raulr\\Documents\\Unity Projects\\HexapodControl\\HexapodLibrary\\HexapodLibrary.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
