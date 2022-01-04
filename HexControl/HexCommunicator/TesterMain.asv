@@ -2,8 +2,8 @@ clear;clc;
 asm = NET.addAssembly('C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControl\HexCommunicator\HexCommunicator.dll');
 global hexControl;
 hexControl = WindowsFormsApp1.Form1;
-global valueArray;
-valueArray = zeros(3,1); %[ Roll, Yaw, Pitch ]
+% global valueArray;
+% valueArray = zeros(3,1); %[ Roll, Yaw, Pitch ]
 pushbuttonPlot;
 
 %% Timer Functions
@@ -12,6 +12,8 @@ global move_array;
 function pushbuttonPlot
 fig = uifigure;
 fig.Position = [100 100 700 400];
+
+setappdata(fig, 'checkboxValues', [0,0,0]);
 
 cbxR = uicheckbox(fig);
 cbxR.Text = 'PSI - Roll';
@@ -57,35 +59,24 @@ freqText = uitextarea(fig);
 freqText.Position = [410 300 65 25];
 freqText.Value = num2str(freq.Value);
 
-deg.ValueChangedFcn = @(deg, event) updateFreq(deg, freq, degText, freqText);
-degText.ValueChangedFcn = @(degText, event) updateFreqT(deg, freq, degText, freqText);
-freq.ValueChangedFcn = @(freq, event) updateDeg(deg, freq, degText, freqText);
-freqText.ValueChangedFcn = @(freqText, event) updateDegT(deg, freq, degText, freqText);
+deg.ValueChangedFcn      = @(deg, event) UpdateValues(deg, freq, degText, freqText,     [1,0,0,0]);
+freq.ValueChangedFcn     = @(freq, event) UpdateValues(deg, freq, degText, freqText,    [0,1,0,0]);
+degText.ValueChangedFcn  = @(degText, event) UpdateValues(deg, freq, degText, freqText, [0,0,1,0]);
+freqText.ValueChangedFcn = @(freqText, event) UpdateValues(deg, freq, degText, freqText,[0,0,0,1]);
 
 buildB.ButtonPushedFcn = @(buildB, event) BuildCommandPushed(deg, freq, cbxR, cbxY, cbxP);
-cbxR.ValueChangedFcn = @(cbxR, event) RollSelected(cbxP, cbxY);
-cbxY.ValueChangedFcn = @(cbxY, event) YawSelected(cbxR, cbxP);
-cbxP.ValueChangedFcn = @(cbxP, event) PitchSelected(cbxR, cbxY);
 
-    function RollSelected(P, Y)
-        P.Value = 0;
-        Y.Value = 0;
-        global valueArray;
-        valueArray = [1, 0, 0];
-    end
+cbxR.ValueChangedFcn = @(cbxR, event) AxisSelected(cbxR, cbxY, cbxP, [1, 0, 0]);
+cbxY.ValueChangedFcn = @(cbxY, event) AxisSelected(cbxR, cbxY, cbxP, [0, 1, 0]);
+cbxP.ValueChangedFcn = @(cbxP, event) AxisSelected(cbxR, cbxY, cbxP, [0, 0, 1]);
 
-    function YawSelected(R, P)
-        R.Value = 0;
-        P.Value = 0;
-        global valueArray;
-        valueArray = [0, 1, 0];
-    end
-
-    function PitchSelected(R, Y)
-        R.Value = 0;
-        Y.Value = 0;
-        global valueArray;
-        valueArray = [0, 0, 1];
+    function AxisSelected(R, Y, P, vals)
+        R.Value = vals(1);
+        Y.Value = vals(2);
+        P.Value = vals(3);
+        setappdata(fig, 'checkboxValues', vals);
+%         global valueArray;
+%         valueArray = vals;
     end
 
     function BuildCommandPushed(deg, freq, psi, theta, phi)
@@ -94,86 +85,50 @@ cbxP.ValueChangedFcn = @(cbxP, event) PitchSelected(cbxR, cbxY);
         length(move_array);
     end
 
-    function updateDeg(deg, freq, dText, fText)
-        %%% TEST AREA %%%
-        global valueArray;
-        if valueArray(3)
-            try
-                deg.Value = 1.3/freq.Value + 0.015;
-                warning('Equation');
-            catch
-                warning('Out of Bounds');
-                deg.Value = 15;
-                freq.Value = 1.3/(deg.Value - 0.015);
-            end
-        else %%% END TEST AREA %%%
-            try
-                deg.Value = 1.4/freq.Value - 0.05;
-            catch
-                warning('Out of Bounds');
-                deg.Value = 15;
-                freq.Value = 1.4/(deg.Value + 0.05);
-            end
-        end %%% <- Part of Test!
-        dText.Value = num2str(deg.Value);
-        fText.Value = num2str(freq.Value);
-    end
-
-    function updateFreq(deg, freq, dText, fText)
-        try
-            freq.Value = 1.4/(deg.Value + 0.05);
-        catch
-            warning('Out of Bounds');
-            freq.Value = 2;
-            deg.Value = 1.4/freq.Value - 0.05;
+    function UpdateValues(deg, freq, degText, freqText, selection)
+        vals = getappdata(fig, 'checkboxValues');
+        if vals(3)
+            num = 1.3;
+            adjuster = 0.015;
+        else
+            num = 1.4;
+            adjuster = 0.05;
         end
         
-        dText.Value = num2str(deg.Value);
-        fText.Value = num2str(freq.Value);
-    end
-
-    function updateDegT(deg, freq, dText, fText)
-        f_a = str2double(fText.Value);
-        if f_a > 2
-            f_a = 2;
-        elseif f_a < 0
-            f_a = 0;
+        if selection(1)
+            degr = deg.Value;
+            DorF = 0;
+        elseif selection(2)
+            fre = freq.Value;
+            DorF = 1;
+        elseif selection(3)
+            degr = str2double(degText.Value);
+            DorF = 0;
+        elseif selection(4)
+            fre = str2double(freqText.Value);
+            DorF = 1;
         end
         
-        try
-            freq.Value = f_a;
-            deg.Value = 1.4/f_a - 0.05;
-        catch
-            warning('Out of Bounds');
-            deg.Value = 15;
-            freq.Value = 1.4/(deg.Value + 0.05);
+        if DorF
+            degr = calculateForD(0, num, fre, adjuster);
+        else
+            fre = calculateForD(1, num, degr, adjuster);
         end
         
-        dText.Value = num2str(deg.Value);
-        fText.Value = num2str(freq.Value);
+        deg.Value = degr;
+        freq.Value = fre;
+        degText.Value = num2str(degr);
+        freqText.Value = num2str(fre);
 
     end
 
-    function updateFreqT(deg, freq, dText, fText)
-        f_a = str2double(dText.Value);
-        if f_a > 15
-            f_a = 15;
-        elseif f_a < 0
-            f_a = 0;
+
+    function out = calculateForD( ford, num, val, adjuster )
+        if ford
+            out = num/(val + adjuster);
+        else
+            out = num/val + adjuster;
         end
-        
-        try
-            deg.Value = f_a;
-            freq.Value = 1.4/(f_a + 0.05);
-        catch
-            warning('Out of Bounds');
-            freq.Value = 2;
-            deg.Value = 1.4/freq.Value - 0.05;
-        end
-        
-        dText.Value = num2str(deg.Value);
-        fText.Value = num2str(freq.Value);
-        
     end
 
     function sendCommands(src,event)
