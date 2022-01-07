@@ -1,7 +1,7 @@
 clear;clc;
-asm = NET.addAssembly('C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControl\HexCommunicator\HexCommunicator.dll');
+asm = NET.addAssembly('C:\Users\omlab-admin\Desktop\HexapodControlv2.dll');%'C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControl\HexCommunicator\HexCommunicator.dll');
 global hexControl;
-hexControl = WindowsFormsApp1.Form1;
+hexControl = HexapodControlv2.Class1;
 global valueArray;
 valueArray = zeros(3,1); %[ Roll, Yaw, Pitch ]
 pushbuttonPlot;
