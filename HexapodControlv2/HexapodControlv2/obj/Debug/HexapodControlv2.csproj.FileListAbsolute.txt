@@ -4,3 +4,9 @@ C:\Users\omlab-admin\Documents\GitHub\HexapodControlv2\HexapodControlv2\obj\Debu
 C:\Users\omlab-admin\Documents\GitHub\HexapodControlv2\HexapodControlv2\obj\Debug\HexapodControlv2.csproj.CoreCompileInputs.cache
 C:\Users\omlab-admin\Documents\GitHub\HexapodControlv2\HexapodControlv2\obj\Debug\HexapodControlv2.dll
 C:\Users\omlab-admin\Documents\GitHub\HexapodControlv2\HexapodControlv2\obj\Debug\HexapodControlv2.pdb
+C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexapodControlv2\HexapodControlv2\bin\Debug\HexapodControlv2.dll
+C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexapodControlv2\HexapodControlv2\bin\Debug\HexapodControlv2.pdb
+C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexapodControlv2\HexapodControlv2\obj\Debug\HexapodControlv2.csproj.AssemblyReference.cache
+C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexapodControlv2\HexapodControlv2\obj\Debug\HexapodControlv2.csproj.CoreCompileInputs.cache
+C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexapodControlv2\HexapodControlv2\obj\Debug\HexapodControlv2.dll
+C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexapodControlv2\HexapodControlv2\obj\Debug\HexapodControlv2.pdb

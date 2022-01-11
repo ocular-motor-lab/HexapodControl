@@ -1,10 +1,17 @@
 clear;clc;
+%%% Parse Received Commands
+%%% Function to send command on timer, instead of building a matrix first
+%%% Plot Time, see how it looks
+%%% Find out queue of machine
+%%% Use Debug log, from Notion!
+%%% Test timing on like 10 commands that you can perceive
 asm = NET.addAssembly('C:\Users\omlab-admin\Desktop\HexapodControlv2.dll');%'C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControl\HexCommunicator\HexCommunicator.dll');
 global hexControl;
 hexControl = HexapodControlv2.Class1;
 global valueArray;
 valueArray = zeros(3,1); %[ Roll, Yaw, Pitch ]
 pushbuttonPlot;
+% hexControl.Connect();
 
 %% Timer Functions
 global move_array;
@@ -28,33 +35,47 @@ cbxP.Position = [50 290 90 25];
 buildB = uibutton(fig);
 buildB.Text = 'Build';
 buildB.Position = [50 250 85 25];
+buildB.Enable = false;
 
 senB = uibutton(fig);
 senB.Text = 'Send';
 senB.ButtonPushedFcn = @sendCommands;
-senB.Position = [390 250 85 25];
+senB.Position = [450 250 85 25];
+senB.Enable = false;
 
 resetB = uibutton(fig);
 resetB.Text = 'Reset';
 resetB.ButtonPushedFcn = @resetCommand;
 resetB.Position = [150 250 85 25];
+resetB.Enable = false;
+
+connectB = uibutton(fig);
+connectB.Text = 'Connect';
+connectB.ButtonPushedFcn = @connectChair;
+connectB.Position = [250 250 85 25];
+
+disconnectB = uibutton(fig);
+disconnectB.Text = 'Disconnect';
+disconnectB.ButtonPushedFcn = @resetCommand;
+disconnectB.Position = [350 250 85 25];
+disconnectB.Enable = false;
 
 deg = uislider(fig);
-deg.Position = [200 370 200 3];
+deg.Position = [150 370 300 3];
 deg.Limits = [0 15];
 deg.Value = 4;
 
 degText = uitextarea(fig);
-degText.Position = [410 350 65 25];
+degText.Position = [470 350 65 25];
 degText.Value = num2str(deg.Value);
 
 freq = uislider(fig);
-freq.Position = [200 320 200 3];
+freq.Position = [150 320 300 3];
 freq.Limits = [0 2];
 freq.Value = 1;
 
 freqText = uitextarea(fig);
-freqText.Position = [410 300 65 25];
+freqText.Position = [470 300 65 25];
 freqText.Value = num2str(freq.Value);
 
 deg.ValueChangedFcn = @(deg, event) updateFreq(deg, freq, degText, freqText);
@@ -62,7 +83,8 @@ degText.ValueChangedFcn = @(degText, event) updateFreqT(deg, freq, degText, freq
 freq.ValueChangedFcn = @(freq, event) updateDeg(deg, freq, degText, freqText);
 freqText.ValueChangedFcn = @(freqText, event) updateDegT(deg, freq, degText, freqText);
 
-buildB.ButtonPushedFcn = @(buildB, event) BuildCommandPushed(deg, freq, cbxR, cbxY, cbxP);
+buildB.ButtonPushedFcn   = @(buildB, event) BuildCommandPushed(deg, freq, cbxR, cbxY, cbxP);
+connectB.ButtonPushedFcn = @(connectB, event) connectChair(senB, resetB, connectB, buildB, disconnectB);
 cbxR.ValueChangedFcn = @(cbxR, event) RollSelected(cbxP, cbxY);
 cbxY.ValueChangedFcn = @(cbxY, event) YawSelected(cbxR, cbxP);
 cbxP.ValueChangedFcn = @(cbxP, event) PitchSelected(cbxR, cbxY);
@@ -187,7 +209,7 @@ cbxP.ValueChangedFcn = @(cbxP, event) PitchSelected(cbxR, cbxY);
         ti.UserData.connection.userName = "omlab-admin";
 %         hexControl.userName = "omlab-admin";
 
-        ti.UserData.connection.Connect(strcat('input_log_', string(datestr(now,'HH:MM:SS')).replace(':', '-'), '.csv'));
+        %ti.UserData.connection.Connect(strcat('input_log_', string(datestr(now,'HH:MM:SS')).replace(':', '-'), '.csv'));
 %         hexControl.Connect(strcat('input_log_', string(datestr(now,'HH:MM:SS')).replace(':', '-'), '.csv'));
 
         ti.TimerFcn = {@theCallbackFunction};
@@ -211,11 +233,21 @@ cbxP.ValueChangedFcn = @(cbxP, event) PitchSelected(cbxR, cbxY);
         end
     end
 
+    function connectChair(senB, resetB, connectB, buildB, disconnectB)
+        global hexControl;
+        hexControl.Connect(strcat('input_log_', string(datestr(now,'HH:MM:SS')).replace(':', '-'), '.csv'));
+        senB.Enable = true;
+        resetB.Enable = true;
+        buildB.Enable = true;
+        disconnectB.Enable = true;
+        connectB.Enable = false;
+    end
+
     function resetCommand(src, event)
         global move_array
         global hexControl;
         move_array = [];
-        hexControl.SendCommand(0, 0, 0, 0, 0, 0);
+        hexControl.ResetChair();
         %src.UserData.connection.SendCommand(0, 0, 0, 0, 0, 0);%
     end
 

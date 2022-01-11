@@ -8,24 +8,19 @@
     ".NETFramework,Version=v4.8": []
   },
   "packageFolders": {
-    "C:\\Users\\raulr\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\omlab-admin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\raulr\\Documents\\Unity Projects\\HexapodControl\\ClassLibrary1\\ClassLibrary1.csproj",
+      "projectUniqueName": "C:\\Users\\omlab-admin\\Documents\\GitHub\\HexapodControl\\Old Files\\ClassLibrary1\\ClassLibrary1.csproj",
       "projectName": "ClassLibrary1",
-      "projectPath": "C:\\Users\\raulr\\Documents\\Unity Projects\\HexapodControl\\ClassLibrary1\\ClassLibrary1.csproj",
-      "packagesPath": "C:\\Users\\raulr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\raulr\\Documents\\Unity Projects\\HexapodControl\\ClassLibrary1\\obj\\",
+      "projectPath": "C:\\Users\\omlab-admin\\Documents\\GitHub\\HexapodControl\\Old Files\\ClassLibrary1\\ClassLibrary1.csproj",
+      "packagesPath": "C:\\Users\\omlab-admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\omlab-admin\\Documents\\GitHub\\HexapodControl\\Old Files\\ClassLibrary1\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\raulr\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\omlab-admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -50,7 +45,7 @@
     "frameworks": {
       "net48": {
         "targetAlias": "net48",
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
   }

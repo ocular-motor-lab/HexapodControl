@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace HexapodControlv2
 {
@@ -30,45 +31,108 @@ namespace HexapodControlv2
         // udp
         private IPEndPoint mboxIPE = null;
         private IPEndPoint recvIPE = null;
-        private Socket socket = null;
-        private EndPoint Remote = null;
+        private UdpClient receiveClient = null;
+        private UdpClient sendClient = null;
+        //private Socket socket = null;
+        //private EndPoint Remote = null;
 
-        StreamWriter logger;
-        StreamWriter errorLogger;
+        // logging
+        private byte[] recBuffer;
+        private StreamWriter logger;
+        private StreamWriter errorLogger;
+        private StreamWriter receivedLogger;
         public string userName = "omlab-admin";
         // Track whether there were any errors
         private bool errTracker = false;
         // Need to track the frame number
         private int frameNum = 0;
+        String timeString;
+        string filename;
 
 
         /// <summary>
         /// Takes filename as an input for the connection log
         /// </summary>
         /// <param name="filename"></param>
-        public void Connect(string filename = "UDPLog.csv")
+        public void Connect(string filename2 = "UDPLog.csv")
         {
-            String timeString = DateTime.Now.ToString("mm\\_ss");
+            filename = filename2;
+            timeString = DateTime.Now.ToString("MM\\_dd\\_hh\\_mm\\_ss");
             mboxIPE = new IPEndPoint(IPAddress.Parse("192.168.15.255"), 7408);
             recvIPE = new IPEndPoint(IPAddress.Parse("192.168.15.100"), 8410);
-            errorLogger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "ErrLog.txt");
 
             try
             {
-                socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                Remote = (EndPoint)(recvIPE);
-            } catch (Exception e)
+                ThreadPool.QueueUserWorkItem(delegate
+                {
+                    receiveClient = new UdpClient();
+                    receiveClient.ExclusiveAddressUse = false;
+                    receiveClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+                    receiveClient.Client.Bind(recvIPE);
+                    recBuffer = receiveClient.Receive(ref recvIPE);
+
+                    string receivedString = BitConverter.ToString(recBuffer);
+
+                    using (receivedLogger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "receivedvalues.csv", true))
+                    {
+                        receivedLogger.WriteLine("Hi ");
+                        receivedLogger.WriteLine(receivedString);
+                        receivedLogger.Flush();
+                    }
+
+                });
+                Thread.Sleep(5);
+            }catch(Exception e)
             {
-                errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
-                errorLogger.Flush();
+
+                using (errorLogger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "ErrLog.txt", true))
+                {
+                    errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
+                    errorLogger.Flush();
+                }
+                throw;
+            }
+            try
+            {
+                sendClient = new UdpClient();
+                sendClient.ExclusiveAddressUse = false;
+                sendClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+                sendClient.Client.Bind(recvIPE);
+
+                using (logger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "_" + filename, true))
+                {
+                    logger.Write(DateTime.Now.ToString("hh:mm:ss.fff"));
+                    logger.WriteLine(",X,Y,Z,U,V,W,HEX String");
+                    logger.Flush();
+                }
+            }
+            catch(Exception e)
+            {
+                using (errorLogger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "ErrLog.txt", true))
+                {
+                    errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
+                    errorLogger.Flush();
+                }
                 throw;
             }
 
-            logger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "_" + filename);
+            //try
+            //{
+            //    socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            //    Remote = (EndPoint)(recvIPE);
+            //} catch (Exception e)
+            //{
+            //    errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
+            //    errorLogger.Flush();
+            //    throw;
+            //}
 
-            logger.Write(DateTime.Now.ToString("hh:mm:ss.fff"));
-            logger.WriteLine(",X,Y,Z,U,V,W,HEX String");
-            logger.Flush();
+            
+        }
+
+        public void ResetChair()
+        {
+            SendCommand(0, 0, 0, 0, 0, 0);
         }
 
         public bool SendCommand(double xPos, double yPos, double zPos, double uPos, double vPos, double wPos)
@@ -80,9 +144,6 @@ namespace HexapodControlv2
                          (uPos >= 450) || // Verifies that max arm length is not exceeded
                          (vPos >= 450) || // Verifies that max arm length is not exceeded
                          (wPos >= 450);   // Verifies that max arm length is not exceeded
-
-
-
 
             if (errTracker)
             {
@@ -103,26 +164,60 @@ namespace HexapodControlv2
                 // Form the BYTE ARRAY that is "actually" sent
                 byte[] sendBuf = HexStringToByteArray(sendStr);
 
-                try {
-                    // Send it!
-                    socket.SendTo(sendBuf, mboxIPE);
-                } catch (Exception e)
+                try
                 {
-                    errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
-                    errorLogger.Flush();
+                    ThreadPool.QueueUserWorkItem(delegate
+                    {
+                        recBuffer = receiveClient.Receive(ref recvIPE);
+                        using (receivedLogger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "receivedvalues.csv", true))
+                        {
+                            receivedLogger.WriteLine(BitConverter.ToString(recBuffer));
+                            receivedLogger.Flush();
+                        }
+
+                        //string receivedString = BitConverter.ToString(recBuffer);
+
+                        //receivedLogger.WriteLine(receivedString);
+                        //receivedLogger.Flush();
+                    });
+                    Thread.Sleep(5);
+                }catch(Exception e)
+                {
+                    using (errorLogger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "ErrLog.txt", true))
+                    {
+                        errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
+                        errorLogger.Flush();
+                    }
                     throw;
                 }
 
-            // Increase _GLOBAL frame counter
-            frameNum += 1;
+                try {
+                    // Send it!
+                    //socket.SendTo(sendBuf, mboxIPE);
+                    sendClient.Send(sendBuf, sendBuf.Length, mboxIPE);
+                } catch (Exception e)
+                {
+                    using (errorLogger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "ErrLog.txt", true))
+                    {
+                        errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
+                        errorLogger.Flush();
+                    }
+                    throw;
+                }
+
+                // Increase _GLOBAL frame counter
+                frameNum += 1;
 
                 // Send the command to the log
-                logger.Write(DateTime.Now.ToString("hh:mm:ss.fff"));
+                using (logger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "_" + filename, true))
+                {
+                    logger.Write(DateTime.Now.ToString("hh:mm:ss.fff"));
 
-                logger.WriteLine("," + xPos.ToString("n3") + "," + yPos.ToString("n3") +
-                                 "," + zPos.ToString("n3") + "," + uPos.ToString("n3") +
-                                 "," + vPos.ToString("n3") + "," + wPos.ToString("n3") + "," + sendStr);
-                logger.Flush();
+                    logger.WriteLine("," + xPos.ToString("n3") + "," + yPos.ToString("n3") +
+                                     "," + zPos.ToString("n3") + "," + uPos.ToString("n3") +
+                                     "," + vPos.ToString("n3") + "," + wPos.ToString("n3") + "," + sendStr);
+                    logger.Flush();
+                }
 
                 return errTracker;
             }
@@ -133,20 +228,24 @@ namespace HexapodControlv2
         /// </summary>
         public void Disconnect()
         {
-            try
-            {
-                socket.Shutdown(SocketShutdown.Send);
+            try {
                 //socket.Disconnect(true);
                 logger.Flush();
                 logger.Close();
                 errorLogger.Flush();
                 errorLogger.Close();
+                receivedLogger.Flush();
+                receivedLogger.Close();
             }
             catch (Exception e)
             {
                 errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
                 errorLogger.Flush();
                 errorLogger.Close();
+                receivedLogger.Flush();
+                receivedLogger.Close();
+                Thread.Sleep(5);
+                logger.Flush();
                 logger.Close();
                 throw;
             }
@@ -168,6 +267,8 @@ namespace HexapodControlv2
             {
                 errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
                 errorLogger.Flush();
+                errorLogger.Flush();
+                errorLogger.Close();
                 throw;
             }
             return buffer;
@@ -226,8 +327,11 @@ namespace HexapodControlv2
             }
             catch (Exception e)
             {
-                errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
-                errorLogger.Flush();
+                using (errorLogger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "ErrLog.txt", true))
+                {
+                    errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
+                    errorLogger.Flush();
+                }
                 throw;
             }
 
