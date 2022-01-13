@@ -56,7 +56,7 @@ connectB.Position = [250 250 85 25];
 
 disconnectB = uibutton(fig);
 disconnectB.Text = 'Disconnect';
-disconnectB.ButtonPushedFcn = @resetCommand;
+disconnectB.ButtonPushedFcn = @disconnectChair;
 disconnectB.Position = [350 250 85 25];
 disconnectB.Enable = false;
 
@@ -85,6 +85,8 @@ freqText.ValueChangedFcn = @(freqText, event) updateDegT(deg, freq, degText, fre
 
 buildB.ButtonPushedFcn   = @(buildB, event) BuildCommandPushed(deg, freq, cbxR, cbxY, cbxP);
 connectB.ButtonPushedFcn = @(connectB, event) connectChair(senB, resetB, connectB, buildB, disconnectB);
+disconnectB.ButtonPushedFcn = @(disconnectB, event) disconnectChair(senB, resetB, connectB, buildB, disconnectB);
+
 cbxR.ValueChangedFcn = @(cbxR, event) RollSelected(cbxP, cbxY);
 cbxY.ValueChangedFcn = @(cbxY, event) YawSelected(cbxR, cbxP);
 cbxP.ValueChangedFcn = @(cbxP, event) PitchSelected(cbxR, cbxY);
@@ -207,14 +209,10 @@ cbxP.ValueChangedFcn = @(cbxP, event) PitchSelected(cbxR, cbxY);
         ti.UserData.mvmt = move_array;
         ti.UserData.connection = hexControl;
         ti.UserData.connection.userName = "omlab-admin";
-%         hexControl.userName = "omlab-admin";
-
-        %ti.UserData.connection.Connect(strcat('input_log_', string(datestr(now,'HH:MM:SS')).replace(':', '-'), '.csv'));
-%         hexControl.Connect(strcat('input_log_', string(datestr(now,'HH:MM:SS')).replace(':', '-'), '.csv'));
 
         ti.TimerFcn = {@theCallbackFunction};
         
-        ti.StopFcn = @(~,thisEvent)delete(ti);%ti.UserData.connection.Disconnect();
+        ti.StopFcn = @(~,thisEvent)delete(ti);
 
         start(ti);
         
@@ -223,10 +221,6 @@ cbxP.ValueChangedFcn = @(cbxP, event) PitchSelected(cbxR, cbxY);
             positions = src.UserData.counter;
             cmd = src.UserData.mvmt(positions,:);
             src.UserData.counter = positions + 1;
-            %disp(cmd)
-            %global hexControl;
-%             hexControl.SendCommand(cmd(3), cmd(4), cmd(5),...
-%                                                 cmd(6), cmd(1), cmd(2));
             src.UserData.connection.SendCommand(cmd(3), cmd(4), cmd(5),...
                                                 cmd(6), cmd(1), cmd(2));
 
@@ -241,6 +235,16 @@ cbxP.ValueChangedFcn = @(cbxP, event) PitchSelected(cbxR, cbxY);
         buildB.Enable = true;
         disconnectB.Enable = true;
         connectB.Enable = false;
+    end
+
+    function disconnectChair(senB, resetB, connectB, buildB, disconnectB)
+        global hexControl;
+        hexControl.Disconnect();
+        senB.Enable = false;
+        resetB.Enable = false;
+        buildB.Enable = false;
+        disconnectB.Enable = false;
+        connectB.Enable = true;
     end
 
     function resetCommand(src, event)
