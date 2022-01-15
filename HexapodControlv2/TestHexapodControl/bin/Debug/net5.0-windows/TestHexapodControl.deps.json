@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "TestHexapodControl/1.0.0": {
+        "dependencies": {
+          "HexapodControlv2": "1.0.0"
+        },
+        "runtime": {
+          "TestHexapodControl.dll": {}
+        }
+      },
+      "HexapodControlv2/1.0.0": {
+        "runtime": {
+          "HexapodControlv2.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TestHexapodControl/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HexapodControlv2/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

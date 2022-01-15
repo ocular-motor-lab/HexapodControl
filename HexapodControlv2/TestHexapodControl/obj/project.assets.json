@@ -1,0 +1,92 @@
+{
+  "version": 3,
+  "targets": {
+    "net5.0-windows7.0": {
+      "HexapodControlv2/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/HexapodControlv2.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HexapodControlv2.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HexapodControlv2/1.0.0": {
+      "type": "project",
+      "path": "../HexapodControlv2/HexapodControlv2.csproj",
+      "msbuildProject": "../HexapodControlv2/HexapodControlv2.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net5.0-windows7.0": [
+      "HexapodControlv2 >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\omlab-admin\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\omlab-admin\\Documents\\GitHub\\HexapodControl\\HexapodControlv2\\TestHexapodControl\\TestHexapodControl.csproj",
+      "projectName": "TestHexapodControl",
+      "projectPath": "C:\\Users\\omlab-admin\\Documents\\GitHub\\HexapodControl\\HexapodControlv2\\TestHexapodControl\\TestHexapodControl.csproj",
+      "packagesPath": "C:\\Users\\omlab-admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\omlab-admin\\Documents\\GitHub\\HexapodControl\\HexapodControlv2\\TestHexapodControl\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\omlab-admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net5.0-windows7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net5.0-windows7.0": {
+          "targetAlias": "net5.0-windows",
+          "projectReferences": {
+            "C:\\Users\\omlab-admin\\Documents\\GitHub\\HexapodControl\\HexapodControlv2\\HexapodControlv2\\HexapodControlv2.csproj": {
+              "projectPath": "C:\\Users\\omlab-admin\\Documents\\GitHub\\HexapodControl\\HexapodControlv2\\HexapodControlv2\\HexapodControlv2.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net5.0-windows7.0": {
+        "targetAlias": "net5.0-windows",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
