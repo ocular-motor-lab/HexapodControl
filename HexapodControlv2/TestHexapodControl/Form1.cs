@@ -11,7 +11,7 @@ using HexapodControlv2;
 
 namespace TestHexapodControl
 {
-
+    public class HexComm
     public partial class Form1 : Form
     {
         Class1 hexapod;

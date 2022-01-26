@@ -19,3 +19,4 @@ C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexapodControlv2\TestHexapo
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexapodControlv2\TestHexapodControl\obj\Debug\net5.0-windows\ref\TestHexapodControl.dll
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexapodControlv2\TestHexapodControl\obj\Debug\net5.0-windows\TestHexapodControl.pdb
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexapodControlv2\TestHexapodControl\obj\Debug\net5.0-windows\TestHexapodControl.genruntimeconfig.cache
+C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexapodControlv2\TestHexapodControl\obj\Debug\net5.0-windows\TestHexapodControl.HexComm.resources

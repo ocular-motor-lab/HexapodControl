@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\omlab-admin\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\omlab-admin\\.nuget\\packages"
+    ]
+  }
+}

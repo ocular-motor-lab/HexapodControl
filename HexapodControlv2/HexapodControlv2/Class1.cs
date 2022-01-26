@@ -166,6 +166,54 @@ namespace HexapodControlv2
                 // Form the BYTE ARRAY that is "actually" sent
                 byte[] sendBuf = HexStringToByteArray(sendStr);
 
+
+                try
+                {
+                    // recBuffer = receiveClient.Receive(ref recvIPE);
+
+                    ThreadPool.QueueUserWorkItem(delegate
+                    {
+                        recBuffer = receiveClient.Receive(ref recvIPE);
+                        var temp_string = BitConverter.ToString(recBuffer);
+                        var x = Convert.ToInt32(temp_string.Substring(59, 12).Replace("-", ""), 16) * 5f / 10000 - 5;
+                        var y = Convert.ToInt32(temp_string.Substring(71, 12).Replace("-", ""), 16) * 5f / 10000 - 5;
+                        var z = Convert.ToInt32(temp_string.Substring(83, 12).Replace("-", ""), 16) * 5f / 10000 - 5;
+                        var w = Convert.ToInt32(temp_string.Substring(95, 12).Replace("-", ""), 16) * 5f / 10000 - 5;
+                        var v = Convert.ToInt32(temp_string.Substring(107, 12).Replace("-", ""), 16) * 5f / 10000 - 5;
+                        var u = Convert.ToInt32(temp_string.Substring(119, 12).Replace("-", ""), 16) * 5f / 10000 - 5;
+
+                        using (receivedLogger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "receivedvalues.csv", true))
+                        {
+                            receivedLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + "," +
+                                                     String.Format("{0:0.00}", x) + ',' +
+                                                     String.Format("{0:0.00}", y) + ',' +
+                                                     String.Format("{0:0.00}", z) + ',' +
+                                                     String.Format("{0:0.00}", w) + ',' +
+                                                     String.Format("{0:0.00}", v) + ',' +
+                                                     String.Format("{0:0.00}", u)
+                                                     );
+                            receivedLogger.Flush();
+                        }
+
+                        //string receivedString = BitConverter.ToString(recBuffer);
+
+                        //receivedLogger.WritDateTime.Now.ToString("hh:mm:ss.fff")eLine(receivedString);
+                        //receivedLogger.Flush();
+                    });
+                    Thread.Sleep(5);
+                }
+                catch (Exception e)
+                {
+                    using (errorLogger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "ErrLog.txt", true))
+                    {
+                        errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
+                        errorLogger.Flush();
+                    }
+                    throw;
+                }
+
+
+
                 try
                 {
                     // Send it!
@@ -182,52 +230,6 @@ namespace HexapodControlv2
                     throw;
                 }
 
-                try
-                {
-                    //recBuffer = receiveClient.Receive(ref recvIPE);
-
-                    //ThreadPool.QueueUserWorkItem(delegate
-                    //{
-                    //    recBuffer = receiveClient.Receive(ref recvIPE);
-                    //    var temp_string = BitConverter.ToString(recBuffer);
-                    //    var x = Convert.ToInt32(temp_string.Substring(59, 12).Replace("-", ""), 16) * 5f / 10000 - 5;
-                    //    var y = Convert.ToInt32(temp_string.Substring(71, 12).Replace("-", ""), 16) * 5f / 10000 - 5;
-                    //    var z = Convert.ToInt32(temp_string.Substring(83, 12).Replace("-", ""), 16) * 5f / 10000 - 5;
-                    //    var w = Convert.ToInt32(temp_string.Substring(95, 12).Replace("-", ""), 16) * 5f / 10000 - 5;
-                    //    var v = Convert.ToInt32(temp_string.Substring(107, 12).Replace("-", ""), 16) * 5f / 10000 - 5;
-                    //    var u = Convert.ToInt32(temp_string.Substring(119, 12).Replace("-", ""), 16) * 5f / 10000 - 5;
-
-                    //    using (receivedLogger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "receivedvalues.csv", true))
-                    //    {
-                    //        receivedLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + "," +
-                    //                                 String.Format("{0:0.00}", x) + ',' +
-                    //                                 String.Format("{0:0.00}", y) + ',' +
-                    //                                 String.Format("{0:0.00}", z) + ',' +
-                    //                                 String.Format("{0:0.00}", w) + ',' +
-                    //                                 String.Format("{0:0.00}", v) + ',' +
-                    //                                 String.Format("{0:0.00}", u)
-                    //                                 );
-                    //        receivedLogger.Flush();
-                    //    }
-
-                    //    //string receivedString = BitConverter.ToString(recBuffer);
-
-                    //    //receivedLogger.WritDateTime.Now.ToString("hh:mm:ss.fff")eLine(receivedString);
-                    //    //receivedLogger.Flush();
-                    //});
-                    //Thread.Sleep(5);
-                }
-                catch(Exception e)
-                {
-                    using (errorLogger = new StreamWriter("C:\\Users\\" + userName + "\\Documents\\" + timeString + "ErrLog.txt", true))
-                    {
-                        errorLogger.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + e);
-                        errorLogger.Flush();
-                    }
-                    throw;
-                }
-
-                
 
                 // Increase _GLOBAL frame counter
                 frameNum += 1;
