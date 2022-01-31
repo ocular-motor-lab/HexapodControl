@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
@@ -9,6 +6,7 @@ namespace HexBuilders
 {
     public class Hexapod
     {
+
         public UDPHex udpHex = new UDPHex();
         private Consumer<string> recorder;
 
@@ -22,8 +20,9 @@ namespace HexBuilders
         public string IPlocal = "192.168.15.100";
         public int UDPlocal = 8410; // Who we are (.100)
 
-        public string DataFolder = "C:\\Users\\" + "omlab-admin" + "\\Documents\\";
+        public string DataFolder { get; set; }// = "C:\\Users\\" + "omlab-admin" + "\\Documents\\";
 
+        public bool Connected { get => this.udpHex != null; }
 
         public Hexapod()
         {
@@ -31,7 +30,7 @@ namespace HexBuilders
             // changes when it cannot run them anymore.
         }
 
-        public async Task Init()
+        public async Task asyncInitialize()
         {
             try
             {
@@ -59,7 +58,40 @@ namespace HexBuilders
             }
         }
 
-        public async Task Reset()
+        public async Task<string> asyncMove(double x, double y, double z, double u, double v, double w)
+        {
+            if (udpHex == null) throw new InvalidOperationException("No UDP connection");
+
+            try
+            {
+                // TODO: add timing parameters
+
+                messageCounter++;
+                frameNum++;
+                var moveBytes = udpHex.MoveBuildCommand(frameNum, x, y, z, u, v, w);
+                var sentCommand = udpHex.InterpretMoveCommandResponse(moveBytes);
+                var bytesResponse = await udpHex.UdpSendReceive(moveBytes);
+                string response;
+                
+                response = udpHex.InterpretMoveCommandResponse(bytesResponse);
+
+                var logline = sentCommand + ", " + response;
+                recorder.TryAdd(logline, messageCounter);
+
+                return response;
+            }
+            catch (Exception)
+            {
+                this.Stop();
+
+                throw;
+            }
+            finally
+            {
+            }
+        }
+
+        private async Task asyncReset()
         {
             if (udpHex == null) throw new InvalidOperationException("No UDP connection");
 
@@ -89,43 +121,26 @@ namespace HexBuilders
             }
         }
 
+        public void Initialize()
+        {
+            asyncInitialize();
+        }
+
+        public void Move(double x, double y, double z, double u, double v, double w)
+        {
+            asyncMove(x, y, z, u, v, w);
+        }
+
+        public void Reset()
+        {
+            asyncReset();
+        }
+
         public void Stop()
         {
             recorder.Stop();
             messageCounter = 0;
         }
-
-        public async Task<string> Move(double x, double y, double z, double u, double v, double w)
-        {
-            if (udpHex == null) throw new InvalidOperationException("No UDP connection");
-
-            try
-            {
-                // TODO: add timing parameters
-
-                messageCounter++;
-                frameNum++;
-                var moveBytes = udpHex.MoveBuildCommand(frameNum, x, y, z, u, v, w);
-                var sentCommand = udpHex.InterpretMoveCommandResponse(moveBytes);
-                var bytesResponse = await udpHex.UdpSendReceive(moveBytes);
-                var response = udpHex.InterpretMoveCommandResponse(bytesResponse);
-
-                var logline = sentCommand + ", " + response;
-                recorder.TryAdd(logline, messageCounter);
-
-                return response;
-            }
-            catch (Exception)
-            {
-                this.Stop();
-
-                throw;
-            }
-            finally
-            {
-            }
-        }
-
 
         /// <summary>
         /// Determine a status from the hexapod
@@ -176,7 +191,7 @@ namespace HexBuilders
 
                 var response = udpHex.InterpretWriteRegistryCommandResponse(bytesResponse);
 
-                var logline = response + "\r\n";
+                var logline = "\r\n" + response + "\r\n";
                 recorder.TryAdd(logline, messageCounter);
                 return response;
             }

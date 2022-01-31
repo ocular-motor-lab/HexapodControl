@@ -97,7 +97,7 @@ namespace HexBuilders
             vPos = Convert.ToUInt32(((float)v + 5) / leadDistanceUnit * oneTurnPulseNum); // 255;
             wPos = Convert.ToUInt32(((float)w + 5) / leadDistanceUnit * oneTurnPulseNum); // 255;
 
-
+            functionCode = 0x1301;
             StringBuilder str = new StringBuilder(); ;
             // Builds the HEX String
             str.Append(confirmCode.ToString("X4"));
@@ -184,80 +184,6 @@ namespace HexBuilders
 
             // Form the BYTE ARRAY that is "actually" sent
             return HexStringToByteArray(sendStr);
-        }
-
-        /// <summary>
-        /// Creates the packet that is sent
-        /// </summary>
-        /// <returns>A StringBuilder</returns>
-        public byte[] RegistryStringBuilder(string ReadWrite, string RegWriter, int StartAddress,
-                                            int NumberParameters, int ParamCounter, int[] ParamValues)
-        {
-            StringBuilder str = new StringBuilder();
-
-            var writeBool = false;
-            var fnctn = ReadWrite;
-            var objC = RegWriter;
-            if (fnctn == "Read")
-            {
-                functionCode = 0x1101;
-                switch (objC)
-                {
-                    case "DN":
-                        objectChannel = 0;
-                        break;
-                    case "FN":
-                        objectChannel = 1;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                writeBool = true;
-                functionCode = 0x1201;
-                switch (objC)
-                {
-                    case "FNm":
-                        objectChannel = 0;
-                        break;
-                    case "FN":
-                        objectChannel = 1;
-                        break;
-                    case "CN":
-                        objectChannel = 2;
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            str.Append(confirmCode.ToString("X4"));
-            str.Append(passCode.ToString("X4"));
-            str.Append(functionCode.ToString("X4"));
-            str.Append(objectChannel.ToString("X4"));
-            str.Append(whoAccept.ToString("X4"));
-            str.Append(whoReply.ToString("X4"));
-
-            str.Append((StartAddress).ToString("X4"));
-            str.Append((NumberParameters).ToString("X4"));
-
-            if (writeBool)
-            {
-                for (int i = 0; i < ParamCounter; i++)
-                {
-                    str.Append((ParamValues[i]).ToString("X4"));
-                }
-            }
-
-            // Lowers the Case of the String
-            string sendStr = str.ToString().ToLower();
-
-            // Form the BYTE ARRAY that is "actually" sent
-            byte[] sendBuf = HexStringToByteArray(sendStr);
-
-            return sendBuf;
         }
 
         /// <summary>
@@ -415,8 +341,6 @@ namespace HexBuilders
             return RegList;
         }
 
-
-
     }
 
     class CommandClass : StandardFunctions
@@ -538,6 +462,79 @@ namespace HexBuilders
 
     class RegistryClass : StandardFunctions
     {
+        /// <summary>
+        /// Creates the packet that is sent
+        /// </summary>
+        /// <returns>A StringBuilder</returns>
+        public byte[] RegistryStringBuilder(string ReadWrite, string RegWriter, int StartAddress,
+                                            int NumberParameters, int ParamCounter, int[] ParamValues)
+        {
+            StringBuilder str = new StringBuilder();
+
+            var writeBool = false;
+            var fnctn = ReadWrite;
+            var objC = RegWriter;
+            if (fnctn == "Read")
+            {
+                functionCode = 0x1101;
+                switch (objC)
+                {
+                    case "DN":
+                        objectChannel = 0;
+                        break;
+                    case "FN":
+                        objectChannel = 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                writeBool = true;
+                functionCode = 0x1201;
+                switch (objC)
+                {
+                    case "FNm":
+                        objectChannel = 0;
+                        break;
+                    case "FN":
+                        objectChannel = 1;
+                        break;
+                    case "CN":
+                        objectChannel = 2;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            str.Append(confirmCode.ToString("X4"));
+            str.Append(passCode.ToString("X4"));
+            str.Append(functionCode.ToString("X4"));
+            str.Append(objectChannel.ToString("X4"));
+            str.Append(whoAccept.ToString("X4"));
+            str.Append(whoReply.ToString("X4"));
+
+            str.Append((StartAddress).ToString("X4"));
+            str.Append((NumberParameters).ToString("X4"));
+
+            if (writeBool)
+            {
+                for (int i = 0; i < ParamCounter; i++)
+                {
+                    str.Append((ParamValues[i]).ToString("X4"));
+                }
+            }
+
+            // Lowers the Case of the String
+            string sendStr = str.ToString().ToLower();
+
+            // Form the BYTE ARRAY that is "actually" sent
+            byte[] sendBuf = HexStringToByteArray(sendStr);
+
+            return sendBuf;
+        }
         /// <summary>
         /// Creates the packet that is sent
         /// </summary>
