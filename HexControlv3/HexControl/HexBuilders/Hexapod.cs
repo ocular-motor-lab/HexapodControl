@@ -15,14 +15,14 @@ namespace HexBuilders
 
         private string timeString;
 
-        public string IPremote = "192.168.15.255";
-        public int UDPremote = 7408; // Where it's going (the .255 indicates it's a broadcast!)
-        public string IPlocal = "192.168.15.100";
-        public int UDPlocal = 8410; // Who we are (.100)
+        public string IPremote = "192.168.15.255"; // Where it's going (the .255 indicates it's a broadcast!)
+        public int UDPremote = 7408; 
+        public string IPlocal = "192.168.15.100"; // Who we are (.100)
+        public int UDPlocal = 8410; 
 
-        public string DataFolder { get; set; }// = "C:\\Users\\" + "omlab-admin" + "\\Documents\\";
+        public string DataFolder { get; set; }
 
-        public bool Connected { get => this.udpHex != null; }
+        public bool Connected { get; set; }
 
         public Hexapod()
         {
@@ -45,6 +45,7 @@ namespace HexBuilders
 
                 recorder = new Consumer<string>(RecordToFile);
                 var recorderTask = recorder.Start();
+                Connected = true;
 
                 udpHex = UDPHex.Connect(IPremote, UDPremote, IPlocal, UDPlocal);
                 // TODO: request a lot of info about the hexapod. 
@@ -58,7 +59,7 @@ namespace HexBuilders
             }
         }
 
-        public async Task<string> asyncMove(double x, double y, double z, double u, double v, double w)
+        public async Task<string> asyncMove(double x, double y, double z, double u, double v, double w, int time)
         {
             if (udpHex == null) throw new InvalidOperationException("No UDP connection");
 
@@ -68,7 +69,7 @@ namespace HexBuilders
 
                 messageCounter++;
                 frameNum++;
-                var moveBytes = udpHex.MoveBuildCommand(frameNum, x, y, z, u, v, w);
+                var moveBytes = udpHex.MoveBuildCommand(frameNum, x, y, z, u, v, w, time);
                 var sentCommand = udpHex.InterpretMoveCommandResponse(moveBytes);
                 var bytesResponse = await udpHex.UdpSendReceive(moveBytes);
                 string response;
@@ -101,7 +102,7 @@ namespace HexBuilders
 
                 messageCounter++;
                 frameNum++;
-                var moveBytes = udpHex.MoveBuildCommand(frameNum, 0, 0, 0, 0, 0, 0);
+                var moveBytes = udpHex.MoveBuildCommand(frameNum, 0, 0, 0, 0, 0, 0,10);
                 var sentCommand = udpHex.InterpretMoveCommandResponse(moveBytes);
                 var bytesResponse = await udpHex.UdpSendReceive(moveBytes);
                 var response = udpHex.InterpretMoveCommandResponse(bytesResponse);
@@ -126,14 +127,26 @@ namespace HexBuilders
             asyncInitialize();
         }
 
-        public void Move(double x, double y, double z, double u, double v, double w)
+        public void Move(double x, double y, double z, double u, double v, double w, int time)
         {
-            asyncMove(x, y, z, u, v, w);
+
+            var task = asyncMove(x, y, z, u, v, w, time);
+            task.Wait();
+            if (task.IsFaulted)
+            {
+                throw task.Exception;
+            }
         }
 
         public void Reset()
         {
             asyncReset();
+            //var task = 
+            //task.Wait();
+            //if ( task.IsFaulted)
+            //{
+            //    throw task.Exception;
+            //}
         }
 
         public void Stop()

@@ -59,9 +59,9 @@ namespace HexBuilders
 
         }
 
-        public byte[] MoveBuildCommand(int frameNum, double x, double y, double z, double u, double v, double w)
+        public byte[] MoveBuildCommand(int frameNum, double x, double y, double z, double u, double v, double w, int time)
         {
-            return MoveStringBuilder(frameNum, x, y, z, u, v, w);
+            return MoveStringBuilder(frameNum, x, y, z, u, v, w, time);
         }
 
         public string InterpretMoveCommandResponse(byte[] response)
