@@ -39,7 +39,7 @@ namespace HexBuilders
 
                 using (var sentCommands = new StreamWriter(file, true))
                 {
-                    sentCommands.WriteLine("Record Time, Send Time, X, Y, Z, V, U, W, Receive Time, X, Y, Z, V, U, W");
+                    sentCommands.WriteLine("Record Time, Send Time, FN Code, FN Time, X, Y, Z, V, U, W, Receive Time, FN Code, FN Time, X, Y, Z, V, U, W");
                     sentCommands.Flush();
                 }
 
@@ -170,7 +170,7 @@ namespace HexBuilders
             {
                 messageCounter++;
                 frameNum++;
-                var readBytes = udpHex.RegistryReadStringBuilder(RegType, StartAddress, NumberParameters);
+                var readBytes = udpHex.RegistryReadCommand(RegType, StartAddress, NumberParameters);
                 var bytesResponse = await udpHex.UdpSendReceive(readBytes);
 
                 var response = udpHex.InterpretReadRegistryCommandResponse(bytesResponse);
@@ -199,7 +199,7 @@ namespace HexBuilders
             {
                 messageCounter++;
                 frameNum++;
-                var readBytes = udpHex.RegistryWriteStringBuilder(RegType, StartAddress, NumberParameters, ParamCounter, ParamValues);
+                var readBytes = udpHex.RegistryWriteCommand(RegType, StartAddress, NumberParameters, ParamCounter, ParamValues);
                 var bytesResponse = await udpHex.UdpSendReceive(readBytes);
 
                 var response = udpHex.InterpretWriteRegistryCommandResponse(bytesResponse);

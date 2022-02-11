@@ -38,6 +38,17 @@ namespace TestLibraries
             this.chooseFilePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.sineStatusTB = new System.Windows.Forms.TextBox();
+            this.useSineCB = new System.Windows.Forms.CheckBox();
+            this.buildSineB = new System.Windows.Forms.Button();
+            this.shiftNUD = new System.Windows.Forms.NumericUpDown();
+            this.phaseNUD = new System.Windows.Forms.NumericUpDown();
+            this.periodNUD = new System.Windows.Forms.NumericUpDown();
+            this.amplitudeNUD = new System.Windows.Forms.NumericUpDown();
+            this.shiftLBL = new System.Windows.Forms.Label();
+            this.phaseLBL = new System.Windows.Forms.Label();
+            this.periodLBL = new System.Windows.Forms.Label();
+            this.AmpLBL = new System.Windows.Forms.Label();
             this.clearArrayB = new System.Windows.Forms.Button();
             this.addToArrayB = new System.Windows.Forms.Button();
             this.timerArrayLBL = new System.Windows.Forms.Label();
@@ -62,9 +73,16 @@ namespace TestLibraries
             this.sameValueCB = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.resetButton = new System.Windows.Forms.Button();
+            this.maxLBL = new System.Windows.Forms.Label();
+            this.minLBL = new System.Windows.Forms.Label();
+            this.stopTimerB = new System.Windows.Forms.Button();
             this.menuStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.shiftNUD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.phaseNUD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.periodNUD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.amplitudeNUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arrayTimerNUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xArrayPosNUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wValueNUD)).BeginInit();
@@ -101,7 +119,7 @@ namespace TestLibraries
             // 
             // ResponseBox
             // 
-            this.ResponseBox.Location = new System.Drawing.Point(12, 230);
+            this.ResponseBox.Location = new System.Drawing.Point(12, 628);
             this.ResponseBox.Multiline = true;
             this.ResponseBox.Name = "ResponseBox";
             this.ResponseBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -112,7 +130,7 @@ namespace TestLibraries
             // 
             this.DisconnectButton.BackColor = System.Drawing.Color.Red;
             this.DisconnectButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.DisconnectButton.Location = new System.Drawing.Point(789, 465);
+            this.DisconnectButton.Location = new System.Drawing.Point(789, 863);
             this.DisconnectButton.Name = "DisconnectButton";
             this.DisconnectButton.Size = new System.Drawing.Size(94, 61);
             this.DisconnectButton.TabIndex = 5;
@@ -153,11 +171,22 @@ namespace TestLibraries
             this.tabControl1.Location = new System.Drawing.Point(10, 43);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(773, 181);
+            this.tabControl1.Size = new System.Drawing.Size(773, 285);
             this.tabControl1.TabIndex = 7;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.sineStatusTB);
+            this.tabPage1.Controls.Add(this.useSineCB);
+            this.tabPage1.Controls.Add(this.buildSineB);
+            this.tabPage1.Controls.Add(this.shiftNUD);
+            this.tabPage1.Controls.Add(this.phaseNUD);
+            this.tabPage1.Controls.Add(this.periodNUD);
+            this.tabPage1.Controls.Add(this.amplitudeNUD);
+            this.tabPage1.Controls.Add(this.shiftLBL);
+            this.tabPage1.Controls.Add(this.phaseLBL);
+            this.tabPage1.Controls.Add(this.periodLBL);
+            this.tabPage1.Controls.Add(this.AmpLBL);
             this.tabPage1.Controls.Add(this.clearArrayB);
             this.tabPage1.Controls.Add(this.addToArrayB);
             this.tabPage1.Controls.Add(this.timerArrayLBL);
@@ -183,14 +212,139 @@ namespace TestLibraries
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(765, 148);
+            this.tabPage1.Size = new System.Drawing.Size(765, 252);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Movement";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // sineStatusTB
+            // 
+            this.sineStatusTB.Location = new System.Drawing.Point(618, 54);
+            this.sineStatusTB.Name = "sineStatusTB";
+            this.sineStatusTB.Size = new System.Drawing.Size(125, 27);
+            this.sineStatusTB.TabIndex = 35;
+            // 
+            // useSineCB
+            // 
+            this.useSineCB.AutoSize = true;
+            this.useSineCB.Location = new System.Drawing.Point(411, 128);
+            this.useSineCB.Name = "useSineCB";
+            this.useSineCB.Size = new System.Drawing.Size(127, 24);
+            this.useSineCB.TabIndex = 34;
+            this.useSineCB.Text = "Use Sine Wave";
+            this.useSineCB.UseVisualStyleBackColor = true;
+            // 
+            // buildSineB
+            // 
+            this.buildSineB.Location = new System.Drawing.Point(631, 19);
+            this.buildSineB.Name = "buildSineB";
+            this.buildSineB.Size = new System.Drawing.Size(94, 29);
+            this.buildSineB.TabIndex = 33;
+            this.buildSineB.Text = "Build Sine";
+            this.buildSineB.UseVisualStyleBackColor = true;
+            this.buildSineB.Click += new System.EventHandler(this.buildSineB_Click);
+            // 
+            // shiftNUD
+            // 
+            this.shiftNUD.DecimalPlaces = 2;
+            this.shiftNUD.Location = new System.Drawing.Point(499, 95);
+            this.shiftNUD.Maximum = new decimal(new int[] {
+            450,
+            0,
+            0,
+            0});
+            this.shiftNUD.Name = "shiftNUD";
+            this.shiftNUD.Size = new System.Drawing.Size(91, 27);
+            this.shiftNUD.TabIndex = 32;
+            this.shiftNUD.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // phaseNUD
+            // 
+            this.phaseNUD.DecimalPlaces = 2;
+            this.phaseNUD.Location = new System.Drawing.Point(499, 65);
+            this.phaseNUD.Name = "phaseNUD";
+            this.phaseNUD.Size = new System.Drawing.Size(91, 27);
+            this.phaseNUD.TabIndex = 31;
+            // 
+            // periodNUD
+            // 
+            this.periodNUD.DecimalPlaces = 4;
+            this.periodNUD.Location = new System.Drawing.Point(499, 35);
+            this.periodNUD.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            262144});
+            this.periodNUD.Name = "periodNUD";
+            this.periodNUD.Size = new System.Drawing.Size(91, 27);
+            this.periodNUD.TabIndex = 30;
+            this.periodNUD.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // amplitudeNUD
+            // 
+            this.amplitudeNUD.DecimalPlaces = 2;
+            this.amplitudeNUD.Location = new System.Drawing.Point(499, 4);
+            this.amplitudeNUD.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.amplitudeNUD.Name = "amplitudeNUD";
+            this.amplitudeNUD.Size = new System.Drawing.Size(91, 27);
+            this.amplitudeNUD.TabIndex = 29;
+            this.amplitudeNUD.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // shiftLBL
+            // 
+            this.shiftLBL.AutoSize = true;
+            this.shiftLBL.Location = new System.Drawing.Point(411, 97);
+            this.shiftLBL.Name = "shiftLBL";
+            this.shiftLBL.Size = new System.Drawing.Size(42, 20);
+            this.shiftLBL.TabIndex = 28;
+            this.shiftLBL.Text = "Shift:";
+            // 
+            // phaseLBL
+            // 
+            this.phaseLBL.AutoSize = true;
+            this.phaseLBL.Location = new System.Drawing.Point(411, 67);
+            this.phaseLBL.Name = "phaseLBL";
+            this.phaseLBL.Size = new System.Drawing.Size(50, 20);
+            this.phaseLBL.TabIndex = 27;
+            this.phaseLBL.Text = "Phase:";
+            // 
+            // periodLBL
+            // 
+            this.periodLBL.AutoSize = true;
+            this.periodLBL.Location = new System.Drawing.Point(411, 37);
+            this.periodLBL.Name = "periodLBL";
+            this.periodLBL.Size = new System.Drawing.Size(54, 20);
+            this.periodLBL.TabIndex = 26;
+            this.periodLBL.Text = "Period:";
+            // 
+            // AmpLBL
+            // 
+            this.AmpLBL.AutoSize = true;
+            this.AmpLBL.Location = new System.Drawing.Point(411, 6);
+            this.AmpLBL.Name = "AmpLBL";
+            this.AmpLBL.Size = new System.Drawing.Size(82, 20);
+            this.AmpLBL.TabIndex = 25;
+            this.AmpLBL.Text = "Amplitude:";
+            // 
             // clearArrayB
             // 
-            this.clearArrayB.Location = new System.Drawing.Point(412, 73);
+            this.clearArrayB.Location = new System.Drawing.Point(258, 155);
             this.clearArrayB.Name = "clearArrayB";
             this.clearArrayB.Size = new System.Drawing.Size(64, 29);
             this.clearArrayB.TabIndex = 24;
@@ -200,7 +354,7 @@ namespace TestLibraries
             // 
             // addToArrayB
             // 
-            this.addToArrayB.Location = new System.Drawing.Point(477, 73);
+            this.addToArrayB.Location = new System.Drawing.Point(323, 155);
             this.addToArrayB.Name = "addToArrayB";
             this.addToArrayB.Size = new System.Drawing.Size(64, 29);
             this.addToArrayB.TabIndex = 23;
@@ -211,7 +365,7 @@ namespace TestLibraries
             // timerArrayLBL
             // 
             this.timerArrayLBL.AutoSize = true;
-            this.timerArrayLBL.Location = new System.Drawing.Point(360, 45);
+            this.timerArrayLBL.Location = new System.Drawing.Point(206, 127);
             this.timerArrayLBL.Name = "timerArrayLBL";
             this.timerArrayLBL.Size = new System.Drawing.Size(45, 20);
             this.timerArrayLBL.TabIndex = 22;
@@ -224,7 +378,7 @@ namespace TestLibraries
             0,
             0,
             65536});
-            this.arrayTimerNUD.Location = new System.Drawing.Point(412, 43);
+            this.arrayTimerNUD.Location = new System.Drawing.Point(258, 125);
             this.arrayTimerNUD.Maximum = new decimal(new int[] {
             1316134911,
             2328,
@@ -237,7 +391,7 @@ namespace TestLibraries
             // xArrayPosLBL
             // 
             this.xArrayPosLBL.AutoSize = true;
-            this.xArrayPosLBL.Location = new System.Drawing.Point(384, 12);
+            this.xArrayPosLBL.Location = new System.Drawing.Point(230, 94);
             this.xArrayPosLBL.Name = "xArrayPosLBL";
             this.xArrayPosLBL.Size = new System.Drawing.Size(21, 20);
             this.xArrayPosLBL.TabIndex = 20;
@@ -247,11 +401,11 @@ namespace TestLibraries
             // 
             this.xArrayPosNUD.DecimalPlaces = 2;
             this.xArrayPosNUD.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             65536});
-            this.xArrayPosNUD.Location = new System.Drawing.Point(412, 10);
+            this.xArrayPosNUD.Location = new System.Drawing.Point(258, 92);
             this.xArrayPosNUD.Maximum = new decimal(new int[] {
             1316134911,
             2328,
@@ -472,7 +626,7 @@ namespace TestLibraries
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(765, 148);
+            this.tabPage2.Size = new System.Drawing.Size(765, 252);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Registries";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -489,11 +643,44 @@ namespace TestLibraries
             this.resetButton.UseVisualStyleBackColor = false;
             this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
             // 
+            // maxLBL
+            // 
+            this.maxLBL.AutoSize = true;
+            this.maxLBL.Location = new System.Drawing.Point(12, 340);
+            this.maxLBL.Name = "maxLBL";
+            this.maxLBL.Size = new System.Drawing.Size(41, 20);
+            this.maxLBL.TabIndex = 36;
+            this.maxLBL.Text = "MAX";
+            // 
+            // minLBL
+            // 
+            this.minLBL.AutoSize = true;
+            this.minLBL.Location = new System.Drawing.Point(12, 539);
+            this.minLBL.Name = "minLBL";
+            this.minLBL.Size = new System.Drawing.Size(37, 20);
+            this.minLBL.TabIndex = 37;
+            this.minLBL.Text = "MIN";
+            // 
+            // stopTimerB
+            // 
+            this.stopTimerB.BackColor = System.Drawing.Color.Red;
+            this.stopTimerB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.stopTimerB.Location = new System.Drawing.Point(790, 628);
+            this.stopTimerB.Name = "stopTimerB";
+            this.stopTimerB.Size = new System.Drawing.Size(94, 61);
+            this.stopTimerB.TabIndex = 38;
+            this.stopTimerB.Text = "Stop";
+            this.stopTimerB.UseVisualStyleBackColor = false;
+            this.stopTimerB.Click += new System.EventHandler(this.stopTimerB_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(894, 561);
+            this.ClientSize = new System.Drawing.Size(894, 936);
+            this.Controls.Add(this.stopTimerB);
+            this.Controls.Add(this.minLBL);
+            this.Controls.Add(this.maxLBL);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.DisconnectButton);
@@ -508,6 +695,10 @@ namespace TestLibraries
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.shiftNUD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.phaseNUD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.periodNUD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.amplitudeNUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.arrayTimerNUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xArrayPosNUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wValueNUD)).EndInit();
@@ -555,6 +746,20 @@ namespace TestLibraries
         private System.Windows.Forms.Label xArrayPosLBL;
         private System.Windows.Forms.NumericUpDown xArrayPosNUD;
         private System.Windows.Forms.CheckBox mvmtCB;
+        private System.Windows.Forms.Label AmpLBL;
+        private System.Windows.Forms.CheckBox useSineCB;
+        private System.Windows.Forms.Button buildSineB;
+        private System.Windows.Forms.NumericUpDown shiftNUD;
+        private System.Windows.Forms.NumericUpDown phaseNUD;
+        private System.Windows.Forms.NumericUpDown periodNUD;
+        private System.Windows.Forms.NumericUpDown amplitudeNUD;
+        private System.Windows.Forms.Label shiftLBL;
+        private System.Windows.Forms.Label phaseLBL;
+        private System.Windows.Forms.Label periodLBL;
+        private System.Windows.Forms.TextBox sineStatusTB;
+        private System.Windows.Forms.Label maxLBL;
+        private System.Windows.Forms.Label minLBL;
+        private System.Windows.Forms.Button stopTimerB;
     }
 }
 

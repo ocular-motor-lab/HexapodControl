@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HexBuilders
@@ -59,35 +56,5 @@ namespace HexBuilders
 
         }
 
-        public byte[] MoveBuildCommand(int frameNum, double x, double y, double z, double u, double v, double w, int time)
-        {
-            return MoveStringBuilder(frameNum, x, y, z, u, v, w, time);
-        }
-
-        public string InterpretMoveCommandResponse(byte[] response)
-        {
-            return MoveInterpret(response);
-        }
-
-        public byte[] RegistryReadCommand(string RegWriter, int StartAddress, int NumberParameters)
-        {
-            return RegistryReadStringBuilder(RegWriter, StartAddress, NumberParameters);
-        }
-
-        public byte[] RegistryWriteCommand(string RegType, int StartAddress,
-                                           int NumberParameters, int ParamCounter, int[] ParamValues)
-        {
-            return RegistryWriteStringBuilder(RegType, StartAddress, NumberParameters, ParamCounter, ParamValues);
-        }
-
-        public string InterpretReadRegistryCommandResponse(byte[] response)
-        {
-            return ReadRegistryInterpret(response);
-        }
-
-        public string InterpretWriteRegistryCommandResponse(byte[] response)
-        {
-            return WriteRegistryInterpret(response);
-        }
     }
 }

@@ -3,6 +3,8 @@ using HexBuilders;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Drawing;
 //using System.Timers;
 
 namespace TestLibraries
@@ -10,6 +12,31 @@ namespace TestLibraries
     public partial class Form1 : Form
     {
         Hexapod hexapod;
+        TimerAsync tAsync;
+        TimeSpan delayStart = new TimeSpan();
+        TimeSpan period = new TimeSpan();
+
+        
+        public List<mvmt> xes = new List<mvmt>();
+
+        public struct mvmt
+        {
+            public mvmt(double x, int y)
+            {
+                this.xPos = x;
+                this.timer = y;
+            }
+            public double xPos { get; set; }
+            public int timer { get; set; }
+        }
+
+        List<double> sineVals = new List<double>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401 }; //{ 130, 129.99, 129.94, 129.87, 129.76, 129.63, 129.47, 129.28, 129.06, 128.81, 128.53, 128.23, 127.89, 127.53, 127.14, 126.73, 126.29, 125.82, 125.33, 124.81, 124.27, 123.7, 123.12, 122.5, 121.87, 121.21, 120.54, 119.84, 119.12, 118.39, 117.63, 116.86, 116.07, 115.27, 114.45, 113.62, 112.77, 111.91, 111.04, 110.16, 109.27, 108.37, 107.46, 106.54, 105.62, 104.69, 103.76, 102.82, 101.88, 100.94, 100, 99.058, 98.116, 97.177, 96.24, 95.307, 94.379, 93.456, 92.539, 91.63, 90.729, 89.838, 88.956, 88.086, 87.227, 86.38, 85.547, 84.729, 83.925, 83.137, 82.366, 81.613, 80.877, 80.161, 79.464, 78.787, 78.131, 77.497, 76.885, 76.295, 75.729, 75.188, 74.67, 74.178, 73.711, 73.27, 72.855, 72.467, 72.107, 71.774, 71.468, 71.191, 70.943, 70.722, 70.531, 70.369, 70.237, 70.133, 70.059, 70.015, 70 };
+        List<float> sineVals2 = new List<float>();
+
+        private float Siner(double Amp, double elements, double Period, double Phase, double Shift)
+        {
+            return (float)(Amp * Math.Sin(elements * 2 * Math.PI / Period + Phase) + Shift);
+        }
 
         public Form1()
         {
@@ -18,6 +45,50 @@ namespace TestLibraries
             hexapod.DataFolder = "C:\\Users\\omlab-admin\\Desktop";
             Application.Idle += Application_Idle;
         }
+        public int ctr = 0;
+        public bool increaseFlag = true;
+        private async Task Doer()
+        {
+            var x = sineVals[ctr];
+            string response = await hexapod.asyncMove(x, x, x, x, x, x, 10);
+            if (increaseFlag)
+            {
+                if (ctr < (sineVals.Count-1))
+                {
+                    ctr++;
+                } else
+                {
+                    increaseFlag = false;
+                }
+            } else
+            {
+                if (ctr > 1)
+                {
+                    ctr--;
+                }
+                else
+                {
+                    increaseFlag = true;
+                }
+            }
+        }
+
+        private async Task Doer2()
+        {
+            var x = Math.Floor(sineVals2[ctr]);
+            //var y = sineVals2[(sineVals2.Count-1) - ctr];
+            string response = await hexapod.asyncMove(x, x, x, x, x, x, 10);
+            if (ctr < (sineVals2.Count-1))
+            {
+                ctr++;
+            }
+            else
+            {
+                ctr = 1;
+            }
+            
+        }
+
 
         private void Application_Idle(object sender, EventArgs e)
         {
@@ -61,31 +132,18 @@ namespace TestLibraries
                 resetButton.Enabled = false;
             }
         }
-
-
         private void ConnectButton_Click(object sender, EventArgs e)
         {
             hexapod.Initialize();
         }
-        public List<mvmt> xes = new List<mvmt>();
-
-        public class mvmt
-        {
-            public mvmt(double x, int y)
-            {
-                this.xPos = x;
-                this.timer = y;
-            }
-            public double xPos { get; set; }
-            public int timer { get; set; }
-        }
-
-        List<double> sineVals = new List<double>() { 100, 98.75, 97.5, 96.25, 95.001, 93.752, 92.505, 91.259, 90.014, 88.771, 87.529, 86.289, 85.052, 83.817, 82.584, 81.354, 80.128, 78.904, 77.683, 76.466, 75.253, 74.043, 72.838, 71.637, 70.44, 69.248, 68.06, 66.878, 65.701, 64.529, 63.363, 62.202, 61.048, 59.899, 58.757, 57.621, 56.492, 55.37, 54.254, 53.146, 52.045, 50.952, 49.866, 48.788, 47.718, 46.656, 45.603, 44.558, 43.522, 42.494, 41.476, 40.467, 39.467, 38.476, 37.495, 36.524, 35.563, 34.612, 33.671, 32.741, 31.821, 30.911, 30.013, 29.125, 28.249, 27.383, 26.529, 25.687, 24.856, 24.037, 23.23, 22.435, 21.651, 20.881, 20.122, 19.376, 18.643, 17.922, 17.214, 16.519, 15.838, 15.169, 14.514, 13.871, 13.243, 12.628, 12.027, 11.439, 10.865, 10.305, 9.7595, 9.2278, 8.7103, 8.2071, 7.7182, 7.2437, 6.7838, 6.3384, 5.9077, 5.4916, 5.0904, 4.704, 4.3325, 3.9759, 3.6343, 3.3079, 2.9965, 2.7003, 2.4193, 2.1536, 1.9031, 1.668, 1.4483, 1.244, 1.0551, 0.88168, 0.72376, 0.58137, 0.45451, 0.34322, 0.24751, 0.16739, 0.10288, 0.053988, 0.020721, 0.0030842, 0.0010809, 0.014711, 0.043973, 0.088861, 0.14937, 0.22549, 0.3172, 0.4245, 0.54737, 0.68579, 0.83973, 1.0092, 1.1941 };
-
         private async void SendButton_Click(object sender, EventArgs e)
         {
+            delayStart = TimeSpan.FromMilliseconds(1300);
+            period = TimeSpan.FromMilliseconds(10);
+
+            Func<CancellationToken, Task> func;
+
             string response;
-            var watch = new System.Diagnostics.Stopwatch();
             if (x13Button.Checked)
                 hexapod.udpHex.functionCode = 0x1301;
             else
@@ -103,45 +161,34 @@ namespace TestLibraries
                 }
                 else
                 {
-                    for (int i = 0; i < 30; i++)
+                    if (useSineCB.Checked)
                     {
-                        var x = sineVals[i];
-                        if (i == 0)
-                        {
-                            response = await hexapod.asyncMove(x, x, x, x, x, x, 1000);
-                            Thread.Sleep(2000);
-                        }
-                        else
-                        {
-                            response = await hexapod.asyncMove(x, x, x, x, x, x, 1000);
-                        }
+                        var x = sineVals2[0];
+                        response = await hexapod.asyncMove(x, x, x, x, x, x, 1300);
+                        func = t => Doer2();
                     }
-                    //var x = 0;// Decimal.ToDouble(xValueNUD.Value);
-                    //var y = 100;
-                    //watch.Start();
-                    //response = await hexapod.asyncMove(x, x, x, x, x, x, 0);
-                    //x = 100;
-                    //response = await hexapod.asyncMove(x, x, x, x, x, x, 10000);
-                    //x = 120;
-                    //response = await hexapod.asyncMove(x, x, x, x, x, x, 12000);
-                    //x = 140;
-                    //response = await hexapod.asyncMove(x, y, x, y, x, y, 14000);
-
+                    else
+                    {
+                        var x = sineVals[0];
+                        response = await hexapod.asyncMove(x, x, x, x, x, x, 1300);
+                        func = t => Doer();
+                    }
+                    ctr++;
+                    tAsync = new TimerAsync(func, delayStart, period, false);
+                    tAsync.Start();
                     //for (int i = 0; i < 30; i++)
                     //{
-                    //    if (x < 400)
+                    //    var x = sineVals[i];
+                    //    if (i == 0)
                     //    {
-                    //        if (x < 201)
-                    //            response = await hexapod.asyncMove(x, x, x, x, x, x, x * 300);
-                    //        else
-                    //        {
-                    //            response = await hexapod.asyncMove(x, y, x, y, x, y, x * 400);
-                    //            y -= 10;
-                    //        }
+                    //        response = await hexapod.asyncMove(x, x, x, x, x, x, 1000);
+                    //        Thread.Sleep(2000);
                     //    }
-                    //    x += 10;
+                    //    else
+                    //    {
+                    //        response = await hexapod.asyncMove(x, x, x, x, x, x, 1000);
+                    //    }
                     //}
-                    //watch.Stop();
                 }
             }
             else
@@ -149,17 +196,12 @@ namespace TestLibraries
                 response = await hexapod.ReadSetting("FN", 28, 1);
                 ResponseBox.AppendText(response + "\r\n");
             }
-            
-            //ResponseBox.AppendText(watch.ElapsedMilliseconds + "\r\n");
-
         }
-
         private void DisconnectButton_Click(object sender, EventArgs e)
         {
             hexapod.Connected = false;
             hexapod.Stop();
         }
-
         private void chooseFilePathToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var newFolder = new FolderBrowserDialog();//.ToString();
@@ -169,7 +211,6 @@ namespace TestLibraries
                 hexapod.DataFolder = newFolder.SelectedPath;
             }
         }
-
         private void sameValueCB_CheckedChanged(object sender, EventArgs e)
         {
             if (sameValueCB.Checked == true)
@@ -182,12 +223,11 @@ namespace TestLibraries
                 //vValueNUD.Enabled = uValueNUD.Enabled = wValueNUD.Enabled = false;
             }
         }
-
         private void resetButton_Click(object sender, EventArgs e)
         {
+            //tAsync.Stop();
             hexapod.Reset();
         }
-
         private void addToArrayB_Click(object sender, EventArgs e)
         {
             var x = (double)xArrayPosNUD.Value;
@@ -195,11 +235,89 @@ namespace TestLibraries
             xes.Add(new mvmt(x, timez));
             ResponseBox.AppendText("Value: " + x + " Time: " + timez + "\r\n");
         }
-
         private void clearArrayB_Click(object sender, EventArgs e)
         {
             xes.Clear();
             ResponseBox.Clear();
+        }
+        private void buildSineB_Click(object sender, EventArgs e)
+        {
+            Graphics g = this.CreateGraphics();
+            Pen pen = new Pen(Brushes.Black, 1.0F);
+
+            float x1 = 0;
+            float y1 = 0;
+
+            float y2 = 0;
+
+            float yEx = 450;
+            float eF = 100;
+            var amplitude = (double)amplitudeNUD.Value;
+            var period = (double)periodNUD.Value;
+            var phase = (double)phaseNUD.Value;
+            var shift = (double)shiftNUD.Value;
+
+            var largest = 0f;
+
+            for (float x = 0; x < period; x += 0.01F)
+            {
+                y2 = Siner(amplitude, x, period, Math.PI, 0);
+                if (y2 > largest)
+                {
+                    largest = y2;
+                }
+            }
+            sineVals2.Clear();
+            for (float x = 0; x < Width; x += 0.01F)
+            {
+                y2 = Siner(amplitude, x, period, Math.PI, shift);
+                if (x < period)
+                    sineVals2.Add(y2);
+                y2 = y2 - (float)shift;
+                
+                y2 /= largest;
+
+                g.DrawLine(pen, x1 * eF, y1 * eF + yEx, x * eF, y2 * eF + yEx);
+                x1 = x;
+                y1 = y2;
+            }
+
+            largest = 0;
+            for ( int i = 1; i < (sineVals2.Count); i++)
+            {
+                var temp = Math.Abs(sineVals2[i] - sineVals2[i - 1]);
+                if ( temp > largest)
+                {
+                    largest = temp;
+                }
+            }
+
+            if (largest > 1)
+            {
+                sineStatusTB.Text = "BAD: " + largest.ToString();
+                sineStatusTB.BackColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                sineStatusTB.Text = "GOOD: " + largest.ToString();
+                sineStatusTB.BackColor = System.Drawing.Color.Green;
+            }
+            foreach (float val in sineVals2)
+            {
+                ResponseBox.AppendText(val.ToString() + ", ");
+            }
+            //ResponseBox.Text = sineVals2.Count.ToString();
+
+            maxLBL.Text = "MAX: " + (amplitude + shift).ToString();
+            minLBL.Text = "MIN: " + ((amplitude + shift) * -1).ToString();
+            g.DrawLine(pen, 0, yEx, Width, yEx);
+            g.DrawLine(pen, 0, yEx-eF, Width, yEx-eF);
+            g.DrawLine(pen, 0, yEx+eF, Width, yEx+eF);
+        }
+
+        private void stopTimerB_Click(object sender, EventArgs e)
+        {
+            tAsync.Stop();
         }
     }
 }
