@@ -24,7 +24,6 @@ C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\Tes
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\TestLibraries\bin\Debug\net5.0-windows\TestLibraries.runtimeconfig.json
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\TestLibraries\bin\Debug\net5.0-windows\TestLibraries.runtimeconfig.dev.json
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\TestLibraries\bin\Debug\net5.0-windows\TestLibraries.dll
-C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\TestLibraries\bin\Debug\net5.0-windows\ref\TestLibraries.dll
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\TestLibraries\bin\Debug\net5.0-windows\TestLibraries.pdb
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\TestLibraries\bin\Debug\net5.0-windows\HexBuilders.dll
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\TestLibraries\bin\Debug\net5.0-windows\HexBuilders.pdb
@@ -40,3 +39,4 @@ C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\Tes
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\TestLibraries\obj\Debug\net5.0-windows\ref\TestLibraries.dll
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\TestLibraries\obj\Debug\net5.0-windows\TestLibraries.pdb
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\TestLibraries\obj\Debug\net5.0-windows\TestLibraries.genruntimeconfig.cache
+C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\TestLibraries\obj\Debug\net5.0-windows\refint\TestLibraries.dll

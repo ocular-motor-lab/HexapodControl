@@ -4,8 +4,8 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Drawing;
-//using System.Timers;
 
 namespace TestLibraries
 {
@@ -16,7 +16,6 @@ namespace TestLibraries
         TimeSpan delayStart = new TimeSpan();
         TimeSpan period = new TimeSpan();
 
-        
         public List<mvmt> xes = new List<mvmt>();
 
         public struct mvmt
@@ -76,8 +75,8 @@ namespace TestLibraries
         private async Task Doer2()
         {
             var x = Math.Floor(sineVals2[ctr]);
-            //var y = sineVals2[(sineVals2.Count-1) - ctr];
-            string response = await hexapod.asyncMove(x, x, x, x, x, x, 10);
+            var y = sineVals2[(sineVals2.Count-1) - ctr];
+            string response = await hexapod.asyncMove(x, y, x, y, x, y, 10);
             if (ctr < (sineVals2.Count-1))
             {
                 ctr++;
@@ -89,6 +88,65 @@ namespace TestLibraries
             
         }
 
+        private float positionTracker = 0;
+        private bool triangleFlipKey = true;
+        private async Task TriangleDoer(float t)
+        {
+            var amp = amplitudeNUD.Value;
+            var maxValue = 100 + amp;
+            var minValue = 100 - amp;
+
+            var x = 100 + positionTracker;
+            var y = 100 - positionTracker;
+
+            string response = await hexapod.asyncMove(x, y, x, y, x, y, 10);
+            
+            if ((positionTracker < (float)amp) && triangleFlipKey)
+            {
+                positionTracker += 1f;
+            } else if ((positionTracker >= (float)amp) && triangleFlipKey)
+            {
+                triangleFlipKey = false;
+            } else if ((positionTracker > -(float)amp) && !triangleFlipKey)
+            {
+                positionTracker -= 1f;
+            }
+            else
+            {
+                triangleFlipKey = true;
+            }
+
+        }
+        private async Task TriangleDoer2()
+        {
+            var x = 0;
+            var y = amp;
+            if (triangleFlipKey)
+            {
+                string response = await hexapod.asyncMove(x, y, x, y, x, y, trianglePeriod);
+                triangleFlipKey = false;
+            } else
+            {
+                string response = await hexapod.asyncMove(y, x, y, x, y, x, trianglePeriod);
+                triangleFlipKey = true;
+            }
+        }
+
+
+        private double startTime = -1;
+        public Stopwatch timer = new Stopwatch();
+        private async Task RollFitter()
+        {
+            if (startTime < 0)
+            {
+                startTime = timer.Elapsed.TotalMilliseconds;
+            }
+
+            var tempPos = Siner(RollDegrees, (timer.Elapsed.TotalMilliseconds - startTime)/1000, 1/RollFrequency, Math.PI, 0);
+            var x = hexapod.CalculateArmLength(0, 0, 110, 0, 0, tempPos, 0, 0, 18);
+            string response = await hexapod.asyncMove(x[2], x[3], x[4], x[5], x[0], x[1], 10);
+
+        }
 
         private void Application_Idle(object sender, EventArgs e)
         {
@@ -123,6 +181,32 @@ namespace TestLibraries
                     clearArrayB.Enabled = false;
                     addToArrayB.Enabled = false;
                 }
+                if (triangleCB.Checked)
+                {
+                    periodNUD.Enabled = false;
+                    phaseNUD.Enabled = false;
+                    shiftNUD.Enabled = false;
+                    amplitudeNUD.Maximum = 400;
+                    amplitudeNUD.Minimum = 0;
+                }
+                else if (RollCB.Checked)
+                {
+                    periodNUD.Enabled = false;
+                    phaseNUD.Enabled = false;
+                    shiftNUD.Enabled = false;
+                    amplitudeNUD.Enabled = false;
+                    freqUD.Enabled = true;
+                    degUD.Enabled = true;
+                } else
+                {
+                    periodNUD.Enabled = true;
+                    phaseNUD.Enabled = true;
+                    shiftNUD.Enabled = true;
+                    amplitudeNUD.Enabled = true;
+                    amplitudeNUD.Maximum = 100;
+                    freqUD.Enabled = false;
+                    degUD.Enabled = false;
+                }
             }
             else
             {
@@ -136,9 +220,49 @@ namespace TestLibraries
         {
             hexapod.Initialize();
         }
+
+        private double RollDegrees;
+        private double RollFrequency;
+        private void freqUD_ValueChanged(object sender, EventArgs e)
+        {
+            decimal temp;
+            temp = (decimal)(1.4 / Decimal.ToDouble(freqUD.Value) - 0.05);
+            if (temp > 15)
+            {
+                degUD.Value = 15;
+                freqUD.Value = (decimal)(1.4 / (Decimal.ToDouble(degUD.Value) + 0.05));
+                RollDegrees = 15;
+            }
+            else
+            {
+                degUD.Value = temp;
+                freqUD.Value = (decimal)(1.4 / (Decimal.ToDouble(degUD.Value) + 0.05));
+                RollDegrees = (double)temp;
+            }
+        }
+        private void degUD_ValueChanged(object sender, EventArgs e)
+        {
+            decimal temp;
+            temp = (decimal)(1.4 / (Decimal.ToDouble(degUD.Value) + 0.05));
+            if (temp > 2)
+            {
+                freqUD.Value = 2;
+                degUD.Value = (decimal)(1.4 / Decimal.ToDouble(freqUD.Value) - 0.05);
+                RollFrequency = 2;
+            }
+            else
+            {
+                freqUD.Value = temp;
+                degUD.Value = (decimal)(1.4 / Decimal.ToDouble(freqUD.Value) - 0.05);
+                RollFrequency= (double)temp;
+            }
+        }
+
+        private float amp;
+        private int trianglePeriod; 
         private async void SendButton_Click(object sender, EventArgs e)
         {
-            delayStart = TimeSpan.FromMilliseconds(1300);
+            delayStart = TimeSpan.FromMilliseconds(4000);
             period = TimeSpan.FromMilliseconds(10);
 
             Func<CancellationToken, Task> func;
@@ -158,6 +282,28 @@ namespace TestLibraries
                         var t = xes[i].timer;
                         response = await hexapod.asyncMove(x, x, x, x, x, x, t);
                     }
+                } 
+                else if (triangleCB.Checked)
+                {
+                    amp = (float)amplitudeNUD.Value;
+                    var x = amp/2;
+                    trianglePeriod = (int)(10 * amp);
+                    period = TimeSpan.FromMilliseconds(trianglePeriod);
+
+                    response = await hexapod.asyncMove(x, x, x, x, x, x, 4000);
+                    func = t => TriangleDoer2();
+                    tAsync = new TimerAsync(func, delayStart, period, false);
+                    tAsync.Start();
+                } else if (RollCB.Checked)
+                {
+                    //var x = sineVals[0];
+                    var x = hexapod.CalculateArmLength(0, 0, 110, 0, 0, 0, 0, 0, 18);
+                    response = await hexapod.asyncMove(x[0], x[1], x[2], x[3], x[4], x[5], 4000);
+
+                    func = t => RollFitter();
+                    tAsync = new TimerAsync(func, delayStart, period, false);
+                    timer.Start();
+                    tAsync.Start();
                 }
                 else
                 {
@@ -318,6 +464,8 @@ namespace TestLibraries
         private void stopTimerB_Click(object sender, EventArgs e)
         {
             tAsync.Stop();
+            timer.Stop();
+            startTime = -1;
         }
     }
 }

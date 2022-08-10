@@ -38,6 +38,12 @@ namespace TestLibraries
             this.chooseFilePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.freqUD = new System.Windows.Forms.NumericUpDown();
+            this.degUD = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.RollCB = new System.Windows.Forms.CheckBox();
+            this.triangleCB = new System.Windows.Forms.CheckBox();
             this.sineStatusTB = new System.Windows.Forms.TextBox();
             this.useSineCB = new System.Windows.Forms.CheckBox();
             this.buildSineB = new System.Windows.Forms.Button();
@@ -79,6 +85,8 @@ namespace TestLibraries
             this.menuStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.freqUD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.degUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shiftNUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.phaseNUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodNUD)).BeginInit();
@@ -119,7 +127,7 @@ namespace TestLibraries
             // 
             // ResponseBox
             // 
-            this.ResponseBox.Location = new System.Drawing.Point(12, 628);
+            this.ResponseBox.Location = new System.Drawing.Point(12, 579);
             this.ResponseBox.Multiline = true;
             this.ResponseBox.Name = "ResponseBox";
             this.ResponseBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -130,7 +138,7 @@ namespace TestLibraries
             // 
             this.DisconnectButton.BackColor = System.Drawing.Color.Red;
             this.DisconnectButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.DisconnectButton.Location = new System.Drawing.Point(789, 863);
+            this.DisconnectButton.Location = new System.Drawing.Point(789, 814);
             this.DisconnectButton.Name = "DisconnectButton";
             this.DisconnectButton.Size = new System.Drawing.Size(94, 61);
             this.DisconnectButton.TabIndex = 5;
@@ -176,6 +184,12 @@ namespace TestLibraries
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.freqUD);
+            this.tabPage1.Controls.Add(this.degUD);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.RollCB);
+            this.tabPage1.Controls.Add(this.triangleCB);
             this.tabPage1.Controls.Add(this.sineStatusTB);
             this.tabPage1.Controls.Add(this.useSineCB);
             this.tabPage1.Controls.Add(this.buildSineB);
@@ -216,6 +230,94 @@ namespace TestLibraries
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Movement";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // freqUD
+            // 
+            this.freqUD.DecimalPlaces = 2;
+            this.freqUD.Enabled = false;
+            this.freqUD.Location = new System.Drawing.Point(591, 218);
+            this.freqUD.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.freqUD.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.freqUD.Name = "freqUD";
+            this.freqUD.Size = new System.Drawing.Size(91, 27);
+            this.freqUD.TabIndex = 41;
+            this.freqUD.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.freqUD.ValueChanged += new System.EventHandler(this.freqUD_ValueChanged);
+            // 
+            // degUD
+            // 
+            this.degUD.DecimalPlaces = 2;
+            this.degUD.Enabled = false;
+            this.degUD.Location = new System.Drawing.Point(591, 188);
+            this.degUD.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.degUD.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.degUD.Name = "degUD";
+            this.degUD.Size = new System.Drawing.Size(91, 27);
+            this.degUD.TabIndex = 40;
+            this.degUD.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.degUD.ValueChanged += new System.EventHandler(this.degUD_ValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(503, 220);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 20);
+            this.label1.TabIndex = 39;
+            this.label1.Text = "Freq:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(503, 190);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(40, 20);
+            this.label2.TabIndex = 38;
+            this.label2.Text = "Deg:";
+            // 
+            // RollCB
+            // 
+            this.RollCB.AutoSize = true;
+            this.RollCB.Location = new System.Drawing.Point(411, 188);
+            this.RollCB.Name = "RollCB";
+            this.RollCB.Size = new System.Drawing.Size(80, 24);
+            this.RollCB.TabIndex = 37;
+            this.RollCB.Text = "Try Roll";
+            this.RollCB.UseVisualStyleBackColor = true;
+            // 
+            // triangleCB
+            // 
+            this.triangleCB.AutoSize = true;
+            this.triangleCB.Location = new System.Drawing.Point(411, 158);
+            this.triangleCB.Name = "triangleCB";
+            this.triangleCB.Size = new System.Drawing.Size(152, 24);
+            this.triangleCB.TabIndex = 36;
+            this.triangleCB.Text = "Use Triangle Wave";
+            this.triangleCB.UseVisualStyleBackColor = true;
             // 
             // sineStatusTB
             // 
@@ -665,7 +767,7 @@ namespace TestLibraries
             // 
             this.stopTimerB.BackColor = System.Drawing.Color.Red;
             this.stopTimerB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.stopTimerB.Location = new System.Drawing.Point(790, 628);
+            this.stopTimerB.Location = new System.Drawing.Point(790, 579);
             this.stopTimerB.Name = "stopTimerB";
             this.stopTimerB.Size = new System.Drawing.Size(94, 61);
             this.stopTimerB.TabIndex = 38;
@@ -677,7 +779,7 @@ namespace TestLibraries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(894, 936);
+            this.ClientSize = new System.Drawing.Size(894, 891);
             this.Controls.Add(this.stopTimerB);
             this.Controls.Add(this.minLBL);
             this.Controls.Add(this.maxLBL);
@@ -695,6 +797,8 @@ namespace TestLibraries
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.freqUD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.degUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shiftNUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.phaseNUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodNUD)).EndInit();
@@ -760,6 +864,12 @@ namespace TestLibraries
         private System.Windows.Forms.Label maxLBL;
         private System.Windows.Forms.Label minLBL;
         private System.Windows.Forms.Button stopTimerB;
+        private System.Windows.Forms.CheckBox triangleCB;
+        private System.Windows.Forms.CheckBox RollCB;
+        private System.Windows.Forms.NumericUpDown freqUD;
+        private System.Windows.Forms.NumericUpDown degUD;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
