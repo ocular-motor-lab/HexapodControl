@@ -10,3 +10,9 @@ C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\Hex
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\HexBuilders\obj\Debug\HexBuilders.csproj.CoreCompileInputs.cache
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\HexBuilders\obj\Debug\HexBuilders.dll
 C:\Users\omlab-admin\Documents\GitHub\HexapodControl\HexControlv3\HexControl\HexBuilders\obj\Debug\HexBuilders.pdb
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexControlv3\HexControl\HexBuilders\bin\Debug\HexBuilders.dll
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexControlv3\HexControl\HexBuilders\bin\Debug\HexBuilders.pdb
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexControlv3\HexControl\HexBuilders\obj\Debug\HexBuilders.csproj.AssemblyReference.cache
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexControlv3\HexControl\HexBuilders\obj\Debug\HexBuilders.csproj.CoreCompileInputs.cache
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexControlv3\HexControl\HexBuilders\obj\Debug\HexBuilders.dll
+C:\Users\raulr\Documents\Unity Projects\HexapodControl\HexControlv3\HexControl\HexBuilders\obj\Debug\HexBuilders.pdb
