@@ -113,12 +113,12 @@ namespace HexBuilders
         public byte[] MoveBuildCommand(int numFrame, double x, double y, double z, double u, double v, double w, int time=(int)absTime)
         {
 
-            var errTracker = (x >= 450) || // Verifies that max arm length is not exceeded
-                             (y >= 450) || // Verifies that max arm length is not exceeded
-                             (z >= 450) || // Verifies that max arm length is not exceeded
-                             (u >= 450) || // Verifies that max arm length is not exceeded
-                             (v >= 450) || // Verifies that max arm length is not exceeded
-                             (w >= 450);   // Verifies that max arm length is not exceeded
+            var errTracker = (x >= 500) || // Verifies that max arm length is not exceeded
+                             (y >= 500) || // Verifies that max arm length is not exceeded
+                             (z >= 500) || // Verifies that max arm length is not exceeded
+                             (u >= 500) || // Verifies that max arm length is not exceeded
+                             (v >= 500) || // Verifies that max arm length is not exceeded
+                             (w >= 500);   // Verifies that max arm length is not exceeded
 
             if (errTracker)
             {
